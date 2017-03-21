@@ -7,7 +7,8 @@
     "start": "webpack-dev-server --inline --hot --open --progress --port 8000",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail",
-    "lint": "tslint \"src/**/*.ts\" -t verbose"
+    "lint": "tslint \"src/**/*.ts\" -t verbose",
+    "server": "ts-node ./server/index"
   },
   "author": "",
   "license": "ISC",
@@ -20,7 +21,13 @@
     "@angular/platform-browser": "^2.4.0",
     "@angular/platform-browser-dynamic": "^2.4.0",
     "@angular/router": "^3.4.0",
+    "babel-preset-env": "^1.2.2",
+    "babel-register": "^6.24.0",
     "core-js": "^2.4.1",
+    "koa": "^2.2.0",
+    "koa-router": "^7.0.1",
+    "koa-static": "^3.0.0",
+    "koa-views": "^6.0.1",
     "rxjs": "^5.1.0",
     "zone.js": "^0.7.6"
   },
@@ -29,6 +36,7 @@
     "@types/node": "~6.0.60",
     "angular2-template-loader": "^0.6.0",
     "awesome-typescript-loader": "^3.0.0-beta.18",
+    "babel-core": "^6.24.0",
     "codelyzer": "~2.0.0",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "2.0.0-beta.5",
