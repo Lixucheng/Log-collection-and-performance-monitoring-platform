@@ -1,6 +1,6 @@
-const Router = require('koa-router');
-var fs = require('fs');
-var path = require('path');
+import * as Router from 'koa-router';
+import * as fs from 'fs';
+import * as path from 'path';
 
 const router: any = new Router();
 
@@ -14,7 +14,6 @@ var loadDir = (dir) => {
       if (stat.isDirectory()) {
         loadDir(nextPath);
       } else if (stat.isFile() && file.indexOf('.') !== 0 && file !== 'index.ts') {
-        console.log(require(nextPath))
         require(nextPath)(router);
       }
     });

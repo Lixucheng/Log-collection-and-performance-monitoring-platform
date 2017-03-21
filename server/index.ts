@@ -1,14 +1,12 @@
-// import Koa from 'koa';
-// import getRouter from 'koa-router'
-const Koa = require('koa');
-const views = require('koa-views');
-const helpers = require('../helpers/root');
-const serve = require('koa-static');
+import * as Koa from 'koa';
+import * as serve from 'koa-static';
 import router from './router';
+const views = require('koa-views');
 
+const helpers = require('../helpers/root');
 const app = new Koa();
 
-app.use(async (ctx: any, next:any) => {
+app.use(async (ctx, next) => {
   const start: any = new Date();
   await next();
   const end: any = new Date();
@@ -25,11 +23,12 @@ app.use(views(helpers.root('dist'), {}));
 app.use(router.routes())
    .use(router.allowedMethods());
 
+
 // 如果不是请求api，全部返回index.html
 app.use(async(ctx, next) => {
   await next();
   if ((!/\/api.*/.test(ctx.url))) {
-    await ctx.render('index');
+    await ctx['render']('index');
   }
 });
 

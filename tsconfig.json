@@ -19,6 +19,7 @@
     "outDir": "tscOut"
   },
   "exclude": [
+    "server",
     "node_modules",
     "**/*.spec.ts"
   ]
