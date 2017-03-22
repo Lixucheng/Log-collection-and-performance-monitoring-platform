@@ -1,15 +1,15 @@
 import db from './index';
 
+const ObjectId = db.Schema.Types.ObjectId;
 
-var Schema = db.Schema;
-var userSchema = new Schema({
+const Schema = db.Schema;
+const userSchema = new Schema({
+  id: ObjectId,
   name : String,
   age : Number,
-  DOB : Date,
-  isAlive : Boolean
 });
 
-var User = db.model('User', userSchema);
+const User = db.model('User', userSchema);
 
 
 export default User;

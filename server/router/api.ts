@@ -3,19 +3,14 @@ import User from '../database/user';
 module.exports = router => {
   router.get('/api', async (ctx, next) => {
     var arvind = new User({
-      name: 'Arvind',
-      age: 99,
-      DOB: '01/01/1915',
-      isAlive: true
+      name: '李续铖',
+      age: 99
     });
 
-    arvind.save(function (err, data) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log('Saved : ', data);
-      }
-    });
+    await arvind.save();
+    const lxc = await User.findOne({name: '李续铖'});
+    console.log('findOne:',lxc);
+
     ctx.body = 'hello api';
   });
 }

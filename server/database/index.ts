@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
 
+
 // 连接字符串格式为mongodb://主机/数据库名
 mongoose.connect('mongodb://localhost/lp-platform');
 
