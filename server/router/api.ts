@@ -4,7 +4,8 @@ module.exports = router => {
   router.get('/api', async (ctx, next) => {
     var arvind = new User({
       name: '李续铖',
-      age: 99
+      age: 99,
+      school: 23333
     });
 
     await arvind.save();
