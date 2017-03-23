@@ -8,7 +8,7 @@ const logSchema = new Schema({
   device: Schema.Types.ObjectId,
 });
 
-const Log = db.model('User', logSchema);
+const Log = db.model('Log', logSchema);
 
 
 export default Log;

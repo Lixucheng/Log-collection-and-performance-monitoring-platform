@@ -7,11 +7,11 @@ mongoose.connect('mongodb://localhost/lp-platform');
 const db = mongoose.connection;
 
 db.on('error', function callback () {
-  console.log("Connection error");
+  console.log("Connection database error");
 });
 
 db.once('open', function callback () {
-  console.log("Mongo working!");
+  // console.log("Mongo working!");
 });
 
 export default mongoose;

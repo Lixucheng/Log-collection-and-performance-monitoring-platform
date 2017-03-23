@@ -8,7 +8,6 @@ import Page1 from 'app/page1/app.component';
 import Page2 from 'app/page2/app.component';
 import AppComponent from 'app/app.component';
 
-
 @NgModule({
   declarations: [
     Page1, Page2, AppComponent

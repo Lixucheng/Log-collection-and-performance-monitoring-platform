@@ -8,6 +8,6 @@ const deviceSchema = new Schema({
   data: String
 });
 
-const Device = db.model('User', deviceSchema);
+const Device = db.model('Device', deviceSchema);
 
 export default Device;

@@ -7,9 +7,9 @@ import DataService from 'service/get-list';
   providers: [DataService],
 })
 export default class AppComponent {
-  title = 'page1';
-  list: number[];
-  constructor(private dataService: DataService){
+  private title = 'page1';
+  private list: number[];
+  constructor(private dataService: DataService) {
     this.list = dataService.getList();
     console.log(this.list);
   }

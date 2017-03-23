@@ -5,5 +5,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export default class AppComponent {
-  title = 'page2!';
+  private title = 'page2!';
 }

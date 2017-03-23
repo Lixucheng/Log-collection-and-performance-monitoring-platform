@@ -1,6 +1,7 @@
 import * as Koa from 'koa';
 import * as serve from 'koa-static';
 import router from './router';
+import Socket from './service/socket';
 const views = require('koa-views');
 
 const helpers = require('../helpers/root');
@@ -34,3 +35,5 @@ app.use(async(ctx, next) => {
 
 app.listen(3000);
 console.log('listening on port 3000');
+
+const socket = new Socket();

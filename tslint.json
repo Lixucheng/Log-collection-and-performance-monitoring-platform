@@ -1,0 +1,55 @@
+{
+    "extends": "tslint:recommended",
+    "rules": {
+        "class-name": true,
+        "comment-format": [true, "check-space"], //注释规则
+        "indent": [true, "spaces"], //缩进
+        "no-duplicate-variable": true, //不允许重复的变量声明
+        "no-eval": true,
+        "no-internal-module": true,
+        "no-trailing-whitespace": true,
+        "no-var-keyword": true,
+        "one-line": [true, "check-open-brace", "check-whitespace"],
+        "quotemark": [true, "single"], // 字符串引号
+        "semicolon": [true, "always", "ignore-interfaces"], // 结尾分号
+        "triple-equals": [true], // ===
+        "typedef-whitespace": [true, {
+            "call-signature": "nospace",
+            "index-signature": "nospace",
+            "parameter": "nospace",
+            "property-declaration": "nospace",
+            "variable-declaration": "nospace"
+        }],
+        "variable-name": [true, "ban-keywords"], // 变量名检查
+        "whitespace": [true,
+            "check-branch",
+            "check-decl",
+            "check-operator",
+            "check-separator",
+            "check-type"
+        ],
+        "trailing-comma": [false],
+        "object-literal-sort-keys": false,
+        "ordered-imports": false,
+        "no-console": false
+    },
+    "jsRules": {
+        "indent": [true, "spaces"],
+        "no-duplicate-variable": true,
+        "no-eval": true,
+        "no-trailing-whitespace": true,
+        "one-line": [true, "check-open-brace", "check-whitespace"],
+        "quotemark": [true, "single"],
+        "semicolon": [true, "always", "ignore-interfaces"], // 结尾分号
+        "triple-equals": [true],
+        "variable-name": [true, "ban-keywords"],
+        "whitespace": [true,
+            "check-branch",
+            "check-decl",
+            "check-operator",
+            "check-separator",
+            "check-type"
+        ],
+        "trailing-comma": [false]
+    }
+}
