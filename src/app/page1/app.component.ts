@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import DataService from 'service/get-list';
+import DataService from 'src/service/get-list';
 @Component({
   selector: 'page1',
   templateUrl: './app.component.html',

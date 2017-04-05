@@ -16,6 +16,7 @@ module.exports = {
     alias: {
       'service': helpers.root('src', 'service'),
       'app': helpers.root('src', 'app'),
+      'src': helpers.root('src'),
     },
   },
 

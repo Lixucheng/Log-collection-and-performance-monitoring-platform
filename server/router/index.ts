@@ -5,15 +5,15 @@ import * as path from 'path';
 const router: any = new Router();
 
 // 自动加载路由
-var loadDir = (dir) => {
+const loadDir = (dir) => {
   fs
     .readdirSync(dir)
     .forEach((file) => {
-      var nextPath = path.join(dir, file);
-      var stat = fs.statSync(nextPath);
+      const nextPath = path.join(dir, file);
+      const stat = fs.statSync(nextPath);
       if (stat.isDirectory()) {
         loadDir(nextPath);
-      } else if (stat.isFile() && file.indexOf('.') !== 0 && file !== 'index.ts') {
+      } else if (stat.isFile() && file.indexOf('.') !== 0 && file !== 'index.ts' && file !== 'index.js') {
         require(nextPath)(router);
       }
     });

@@ -3,16 +3,20 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { MaterialModule } from '@angular/material';
 
-import Page1 from 'app/page1/app.component';
-import Page2 from 'app/page2/app.component';
-import AppComponent from 'app/app.component';
+import Page1 from 'src/app/page1/app.component';
+import Page2 from 'src/app/page2/app.component';
+import AppComponent from 'src/app/app.component';
+
+require ('../styles.scss');
 
 @NgModule({
   declarations: [
     Page1, Page2, AppComponent
   ],
   imports: [
+    MaterialModule,
     BrowserModule,
     FormsModule,
     HttpModule,

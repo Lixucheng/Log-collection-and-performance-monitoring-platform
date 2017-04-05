@@ -15,10 +15,10 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
 
-app.use(serve(helpers.root('dist')));
+app.use(serve(helpers.root('public')));
 
 // Must be used before any router is used
-app.use(views(helpers.root('dist'), {}));
+app.use(views(helpers.root('public', 'dist'), {}));
 
 
 app.use(router.routes())

@@ -1,7 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "src",
+    "watch": true,
+    "baseUrl": "",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
