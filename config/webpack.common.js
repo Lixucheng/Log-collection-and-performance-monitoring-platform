@@ -17,6 +17,7 @@ module.exports = {
       'service': helpers.root('src', 'service'),
       'app': helpers.root('src', 'app'),
       'src': helpers.root('src'),
+      'helpers': helpers.root('helpers'),
     },
   },
 

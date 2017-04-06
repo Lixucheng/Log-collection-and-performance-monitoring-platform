@@ -5,15 +5,17 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 
-import Page1 from 'src/app/page1/app.component';
-import Page2 from 'src/app/page2/app.component';
+import Page1 from 'src/app/page/page1/app.component';
+import Page2 from 'src/app/page/page2/app.component';
+import Log from 'src/app/page/Log';
+import Header from 'src/app/component/header';
 import AppComponent from 'src/app/app.component';
 
-require ('../styles.scss');
+require('../styles.scss');
 
 @NgModule({
   declarations: [
-    Page1, Page2, AppComponent
+    Page1, Page2, AppComponent, Log, Header
   ],
   imports: [
     MaterialModule,
@@ -33,6 +35,10 @@ require ('../styles.scss');
       {
         path: 'page2',
         component: Page2
+      },
+      {
+        path: 'log',
+        component: Log
       }
     ])
   ],

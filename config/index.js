@@ -1,3 +1,3 @@
 module.exports = {
-  logDir: '/upload'
+  logDir: 'public/upload'
 }

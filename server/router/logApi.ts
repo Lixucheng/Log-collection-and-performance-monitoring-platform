@@ -18,30 +18,29 @@ module.exports = router => {
   });
 
   // 获取服务器日志列表
-  router.get('/api/log/list/:deviceid', async (ctx, next) => {
-    const deviceId = this.params.deviceid;
-    const page = this.query.page;
-    const startTime = this.query.startTime;
-    const endTime = this.query.endTime;
+  router.get('/api/log/list/:deviceId', async (ctx, next) => {
+    const deviceId = ctx.params.deviceId;
+    const page = ctx.query.page;
+    const startTime = ctx.query.startTime;
+    const endTime = ctx.query.endTime;
     const ret = [];
 
-    const files = await this.fs.readdir(logDir);
-    files.reduce(async (p, file) => {
+    const files = await fs.readdir(logDir);
+    await files.reduce(async (p, file) => {
       await p;
-      if (this.getFileType(file) === '.txt') {
-        const stat = await this.fs.stat(path.join(logDir, file));
+      if (path.extname(file) === '.txt') {
+        const stat = await fs.stat(path.join(logDir, file));
         if (startTime && endTime) {
           if (stat.birthtime >= new Date(startTime)
             && stat.birthtime <= new Date(endTime)) {
-            ret.push(path.join(logDir, file));
+            ret.push(file);
           }
         } else {
-          ret.push(path.join(this.dir, file));
+          ret.push(file);
         }
       }
     }, null);
 
-    console.log(ret);
     ctx.body = ret;
   });
 };
