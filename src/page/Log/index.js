@@ -2,7 +2,10 @@ import template from './index.html';
 import Layout from 'src/components/Layout';
 import './index.scss';
 import config from 'config';
-import getLogList from 'service/log';
+import {
+  getLogList,
+  sendLogRequest
+} from 'service/log';
 export default {
   template,
   components: {
@@ -12,16 +15,18 @@ export default {
   data() {
     return {
       loading: true,
+      tableLoading: false,
       list: null,
       user: null,
-      deviceId: null,
+      totalPage: 0,
+      currentPage: +this.$route.params.page || 1,
       sendData: {
         deviceId: null,
-        time: null,
+        time: [],
       },
       searchData: {
         deviceId: null,
-        time: null,
+        time: [],
       },
       pickerOptions: {
         shortcuts: [{
@@ -50,12 +55,12 @@ export default {
           }
         }]
       },
+      timmer: null,
     }
   },
   async created() {
-    this.list = await getLogList('electron');
+    await this.getData();
     this.loading = false;
-    console.log(this.list)
   },
   computed: {
     logList() {
@@ -75,11 +80,56 @@ export default {
     }
   },
   methods: {
-    send() {
-      console.log(this.sendData);
+    async getData(time) {
+      if (this.searchData.deviceId) {
+        this.tableLoading = true;
+        const ret = await getLogList(this.searchData.deviceId, this.currentPage, time);
+        this.list = ret.list;
+        this.totalPage = ret.total;
+        console.log(ret)
+        this.tableLoading = false;
+        this.$router.replace({
+          name: 'log',
+          params: {
+            page: this.currentPage
+          }
+        });
+      }
     },
-    search() {
+    clear() {
+      this.totalPage = 0;
+      this.currentPage = +this.$route.params.page || 1;
+    },
+    async send() {
+      if (!this.sendData.deviceId) {
+          return;
+      }
+      if (this.sendData.time.length > 0 && this.sendData.time[0] && this.sendData.time[1]) {
+        await sendLogRequest(this.sendData.deviceId, this.sendData.time.map(t => t.getTime()));
+      } else {
+        await sendLogRequest(this.sendData.deviceId);
+      }
+    },
+    async search() {
       console.log(this.searchData);
+      this.currentPage = 1;
+      if (this.searchData.time.length > 0 && this.searchData.time[0] && this.searchData.time[1]) {
+        await this.getData(this.searchData.time.map(t => t.getTime()));
+      } else {
+        await this.getData();
+      }
+    },
+    async pageChange(index) {
+      this.currentPage = index;
+      await this.getData();
+      this.pageScroll();
+    },
+    pageScroll() {
+      window.scrollBy(0, -30);
+      let scrolldelay = setTimeout(() => this.pageScroll(), 10);
+      if (document.documentElement.scrollTop + document.body.scrollTop == 0) {
+        clearTimeout(scrolldelay);
+      }
     }
   }
 }

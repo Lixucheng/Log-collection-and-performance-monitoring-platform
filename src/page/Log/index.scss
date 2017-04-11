@@ -1,11 +1,11 @@
 .log-actions {
+  border: 1px solid rgb(191, 203, 217);
+  border-radius: 5px;
+  margin: 10px;
   .send,
   .search {
-    margin: 10px;
     padding: 10px;
     margin-bottom: 0;
-    border: 1px solid rgb(191, 203, 217);
-    border-radius: 5px;
     .el-form-item {
       margin-bottom: 0;
     }
@@ -16,6 +16,24 @@
       line-height: 36px;
       font-size: 14px;
       color: rgb(72, 87, 106);
+    }
+  }
+}
+
+.log-list {
+  margin: 10px;
+  .download-btn {
+    text-decoration: none;
+  }
+  .pageination-container {
+    float: right;
+    .el-pagination{
+      padding: 10px 0;
+    }
+    .number, button{
+      height: 38px;
+      line-height: 38px;
+      width: 50px;
     }
   }
 }

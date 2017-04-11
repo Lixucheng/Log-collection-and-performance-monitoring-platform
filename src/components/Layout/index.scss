@@ -1,7 +1,7 @@
 $color: rgb(32, 160, 255);
 .layout {
   // height: 100%;
-  // min-height: 100%;
+  min-height: 100%;
   .top-bar {
     height: 60px;
     background-color: $color;
@@ -32,5 +32,18 @@ $color: rgb(32, 160, 255);
         }
       }
     }
+  }
+  .footer {
+    border-top: 3px solid #305fa7;
+    line-height: 50px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    overflow: hidden;
+  }
+  .main-body{
+    padding-bottom: 50px;
   }
 }

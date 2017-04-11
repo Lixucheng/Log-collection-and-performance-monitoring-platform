@@ -12,7 +12,7 @@ Vue.use(VueRouter)
 Vue.use(ElementUI)
 
 const routes = [
-  { path: '', component: Log },
+  { path: '/log/:page', name: 'log', component: Log },
  
 ]
 

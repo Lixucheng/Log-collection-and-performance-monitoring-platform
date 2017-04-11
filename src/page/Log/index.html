@@ -39,17 +39,25 @@
     </el-row>
   </el-row>
 
-  <el-row class="log-list">
+  <el-row class="log-list" v-loading='tableLoading'>
     <el-table :data="logList" stripe style="width: 100%">
-      <el-table-column prop="deviceId" label="设备id" width="180">
+      <el-table-column prop="deviceId" label="设备id">
       </el-table-column>
-      <el-table-column prop="time" label="时间" width="180">
+      <el-table-column prop="time" label="时间">
       </el-table-column>
-      <el-table-column prop="name" label="文件名称" width="180">
+      <el-table-column prop="name" label="文件名称" width="450">
       </el-table-column>
-      <el-table-column  label="操作">
+      <el-table-column label="操作">
+        <template scope="scope">
+          <a :href="'/upload/'+scope.row.name" class='el-button el-button--default el-button--small download-btn' download="">下载</a>
+        </template>
       </el-table-column>
     </el-table>
+    <div v-if='totalPage > 1' class="pageination-container">
+      <el-pagination :current-page='currentPage' @current-change='pageChange' layout="prev, pager, next" :page-count='totalPage' :page-size="20">
+      </el-pagination>
+    </div>
+
   </el-row>
 
 </layout>
