@@ -1,0 +1,36 @@
+$color: rgb(32, 160, 255);
+.layout {
+  // height: 100%;
+  // min-height: 100%;
+  .top-bar {
+    height: 60px;
+    background-color: $color;
+    padding: 0 10px;
+    font-size: 25px;
+    border-bottom: 1px solid #eee;
+    ul {
+      padding: 0 10px;
+      margin: 0;
+      display: inline-block;
+      color: #fff;
+      &.top-right {
+        float: right;
+        font-size: 14px;
+        button {
+          color: #fff;
+          font-size: 14px;
+        }
+      }
+      li {
+        list-style-type: none;
+        display: inline-block;
+        line-height: 60px;
+        margin: 0 7px;
+        a {
+          text-decoration: none;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

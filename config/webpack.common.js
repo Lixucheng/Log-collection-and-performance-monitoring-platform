@@ -6,23 +6,28 @@ var path = require('path');
 
 module.exports = {
   entry: {
-    'polyfills': './src/polyfills.ts',
-    'vendor': './src/vendor.ts',
-    'app': './src/main.ts'
+    vendor: './src/vendor',
+    index: './src/main'
   },
 
   resolve: {
     extensions: ['.ts', '.js', 'json'],
     alias: {
+      vue: 'vue/dist/vue.js',
       'service': helpers.root('src', 'service'),
       'app': helpers.root('src', 'app'),
       'src': helpers.root('src'),
       'helpers': helpers.root('helpers'),
+      'config': helpers.root('config'),
     },
   },
 
   module: {
     rules: [{
+        test: /\.js$/,
+        use: ['babel-loader'],
+        exclude: /node_modules/
+      }, {
         test: /\.ts$/,
         loaders: [{
           loader: 'awesome-typescript-loader',
@@ -72,24 +77,17 @@ module.exports = {
       {
         test: /\.(png|jpg)$/,
         loader: 'url-loader?limit=10000&name=build/[name].[ext]'
-      }]
+      }
+    ]
   },
 
   plugins: [
-    // Workaround for angular/angular#11580
-    new webpack.ContextReplacementPlugin(
-      // The (\\|\/) piece accounts for path separators in *nix and Windows
-      /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-      helpers.root('./src'), // location of your src
-      {} // a map of your routes
-    ),
-
     new webpack.optimize.CommonsChunkPlugin({
-      name: ['app', 'vendor', 'polyfills']
+      names: ['vendor', 'manifest']
     }),
-
     new HtmlWebpackPlugin({
       template: 'src/index.html'
-    })
+    }),
+    new ExtractTextPlugin('[name].css')
   ]
 };

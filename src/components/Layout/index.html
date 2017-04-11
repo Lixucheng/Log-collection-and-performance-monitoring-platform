@@ -1,0 +1,18 @@
+<div class="layout" v-loading="loading" element-loading-text="拼命加载中">
+  <div class="top-bar">
+    <ul class="top-left">
+      <li class="nav-menu">
+        <a href="/log">{{ title }}</a>
+      </li>
+    </ul>
+    <ul class="top-right">
+      <li class="nav-menu">
+        欢迎 {{ '李续铖' }} ，
+        <el-button type="text">退出</el-button>
+      </li>
+    </ul>
+  </div>
+  <div class="shop-body">
+    <slot>默认界面</slot>
+  </div>
+</div>

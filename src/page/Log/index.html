@@ -1,0 +1,55 @@
+<layout :loading='loading' title='日志中心'>
+
+  <el-row class='log-actions'>
+    <el-row class='send'>
+      <el-col class="title" :span='2'>发送指令：</el-col>
+      <el-form :inline="true" :model="sendData">
+        <el-form-item label="设备Id">
+          <el-input v-model="sendData.deviceId" placeholder="设备Id"></el-input>
+        </el-form-item>
+        <el-form-item label="时间">
+          <el-col :span="11">
+            <el-date-picker v-model="sendData.time" type="datetimerange" :picker-options="pickerOptions" placeholder="选择时间范围" align="right">
+            </el-date-picker>
+          </el-col>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="send">发送指令</el-button>
+        </el-form-item>
+      </el-form>
+
+    </el-row>
+    <el-row class='search'>
+      <el-col class="title" :span='2'>日志查询：</el-col>
+
+      <el-form :inline="true" :model="searchData">
+        <el-form-item label="设备Id">
+          <el-input v-model="searchData.deviceId" placeholder="设备Id"></el-input>
+        </el-form-item>
+        <el-form-item label="时间">
+          <el-col :span="11">
+            <el-date-picker v-model="searchData.time" type="datetimerange" :picker-options="pickerOptions" placeholder="选择时间范围" align="right">
+            </el-date-picker>
+          </el-col>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="search">查询</el-button>
+        </el-form-item>
+      </el-form>
+    </el-row>
+  </el-row>
+
+  <el-row class="log-list">
+    <el-table :data="logList" stripe style="width: 100%">
+      <el-table-column prop="deviceId" label="设备id" width="180">
+      </el-table-column>
+      <el-table-column prop="time" label="时间" width="180">
+      </el-table-column>
+      <el-table-column prop="name" label="文件名称" width="180">
+      </el-table-column>
+      <el-table-column  label="操作">
+      </el-table-column>
+    </el-table>
+  </el-row>
+
+</layout>
