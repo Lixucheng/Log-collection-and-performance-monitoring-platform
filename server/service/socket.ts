@@ -4,19 +4,31 @@ const WebSocketServer = websocket.Server;
 export const clientList = {};
 
 
-export default class socket {
-  constructor() {
+export class Socket {
+  public init() {
     const wss = new WebSocketServer({ port: 8181 });
+    console.log('webSocket server is running on 8181');
     wss.on('connection', function (ws) {
-      console.log('client connected');
       ws.on('message', function (message) {
         console.log(message);
         const data = JSON.parse(message);
         if (data.type === 'regist') {
-          clientList[data.deviceId] = (e) =>  ws.send(e);
-          clientList[data.deviceId]('success');
+          clientList[data.deviceId] = (e) =>  ws.send(JSON.stringify(e));
         }
       });
     });
   }
+  public sendRequest(deviceId: string, startTime: number, endTime: number): boolean {
+    if (clientList[deviceId]) {
+      clientList[deviceId]({
+        startTime, endTime, type: 'upload'
+      });
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
+
+const socket = new Socket();
+export default socket;

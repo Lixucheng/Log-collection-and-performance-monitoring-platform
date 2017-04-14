@@ -2,6 +2,7 @@ import template from './index.html';
 import Layout from 'src/components/Layout';
 import './index.scss';
 import config from 'config';
+import { Notification } from 'element-ui';
 import {
   getLogList,
   sendLogRequest
@@ -104,10 +105,21 @@ export default {
       if (!this.sendData.deviceId) {
           return;
       }
+      let ret;
       if (this.sendData.time.length > 0 && this.sendData.time[0] && this.sendData.time[1]) {
-        await sendLogRequest(this.sendData.deviceId, this.sendData.time.map(t => t.getTime()));
+        ret = await sendLogRequest(this.sendData.deviceId, this.sendData.time.map(t => t.getTime()));
       } else {
-        await sendLogRequest(this.sendData.deviceId);
+        ret = await sendLogRequest(this.sendData.deviceId);
+      }
+      if(ret) {
+        Notification.success({
+          title: '发送成功',
+        });
+      } else {
+        Notification.error({
+          title: '已发送',
+          message: '客户端不在线, 信息已缓存, 待客户端上线后才会响应'
+        })
       }
     },
     async search() {

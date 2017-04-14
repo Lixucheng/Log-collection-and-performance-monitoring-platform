@@ -1,6 +1,7 @@
 import Device from '../database/device';
 import Log from '../database/log';
 import * as path from 'path';
+import Socket from '../service/socket';
 const config = require('../../config');
 const root = require('../../helpers/root').root;
 const fs = require('../../helpers/fs');
@@ -55,7 +56,6 @@ module.exports = router => {
     const endTime = +ctx.query.endTime;
 
     console.log(startTime, startTime);
-
-    ctx.body = 1;
+    ctx.body = Socket.sendRequest(deviceId, startTime, endTime);
   });
 };

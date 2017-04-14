@@ -9,7 +9,7 @@
     "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail",
     "lint": "tslint \"src/**/*.ts\" -t verbose",
     "server": "ts-node ./server/app",
-    "pm2": "pm2 start server --watch"
+    "s": "nodemon server"
   },
   "author": "",
   "license": "ISC",
