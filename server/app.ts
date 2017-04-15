@@ -3,6 +3,7 @@ import * as serve from 'koa-static';
 import router from './router';
 import Socket from './service/socket';
 const views = require('koa-views');
+const body = require('koa-bodyparser');
 
 const helpers = require('../helpers/root');
 const app = new Koa();
@@ -14,6 +15,8 @@ app.use(async (ctx, next) => {
   const ms: any = end - start;
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
+
+app.use(body());
 
 app.use(serve(helpers.root('public')));
 

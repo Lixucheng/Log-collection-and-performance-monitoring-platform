@@ -22,11 +22,11 @@ export default {
       totalPage: 0,
       currentPage: +this.$route.params.page || 1,
       sendData: {
-        deviceId: null,
+        deviceId: 'electron',
         time: [],
       },
       searchData: {
-        deviceId: null,
+        deviceId: 'electron',
         time: [],
       },
       pickerOptions: {

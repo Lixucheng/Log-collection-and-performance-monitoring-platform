@@ -41,8 +41,11 @@ module.exports = router => {
         }
       }
     }, null);
-
-
+    ret.sort((a: string, b: string): number => {
+      const data1 = new Date(a.split('-')[2].split('_').join('-'));
+      const data2 = new Date(b.split('-')[2].split('_').join('-'));
+      return +data2 - +data1;
+    });
     ctx.body = {
       total: Math.ceil(ret.length / 20),
       list: ret.splice(page * 20 - 20, 20)
