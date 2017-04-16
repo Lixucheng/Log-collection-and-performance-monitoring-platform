@@ -15,7 +15,7 @@ module.exports = router => {
       });
       await arvind.save();
       console.log(arvind);
-    } 
+    }
     // const lxc = await User.findOne({name: '李续铖'});
     // console.log('findOne:', lxc);
 

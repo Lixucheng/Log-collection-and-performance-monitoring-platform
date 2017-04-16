@@ -52,7 +52,7 @@ module.exports = router => {
     };
   });
 
-  // 获取服务器日志列表
+  // 向客户端发送请求
   router.get('/api/log/request/:deviceId', async (ctx, next) => {
     const deviceId = ctx.params.deviceId;
     const startTime = +ctx.query.startTime;
