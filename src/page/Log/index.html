@@ -1,5 +1,5 @@
 <layout :loading='loading' title='日志中心'>
-
+  <div v-title="'日志中心'"></div>
   <el-row class='log-actions'>
     <el-row class='send'>
       <el-col class="title" :span='2'>发送指令：</el-col>
@@ -54,7 +54,8 @@
       </el-table-column>
     </el-table>
     <div v-if='totalPage > 1' class="pageination-container">
-      <el-pagination :current-page='currentPage' @current-change='pageChange' layout="prev, pager, next" :page-count='totalPage' :page-size="20">
+      <el-pagination :current-page='currentPage' @current-change='pageChange' layout="prev, pager, next" :page-count='totalPage'
+        :page-size="20">
       </el-pagination>
     </div>
 

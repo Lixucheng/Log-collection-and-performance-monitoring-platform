@@ -1,0 +1,23 @@
+<div class="login-page">
+  <div v-title="'登录'"></div>
+  <section class="login-up">
+    <div class="title">性能监控及日志搜集平台</div>
+  </section>
+  <section class="login-down">
+    <el-form ref="loginForm" :rules="rules" class='login-form' :label-position="'top'" label-width="80px" :model="User">
+      <el-form-item label="登录名" prop="name">
+        <el-input v-model="User.name"></el-input>
+      </el-form-item>
+      <el-form-item label="密码" prop="passWord">
+        <el-input type='password' v-model="User.passWord"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button class='submit-btn' type="primary" @click="login">登录</el-button>
+      </el-form-item>
+    </el-form>
+  </section>
+
+  <div class="footer">
+    Copyright © 2017 All Rights Reserved lixucheng.cn
+  </div>
+</div>

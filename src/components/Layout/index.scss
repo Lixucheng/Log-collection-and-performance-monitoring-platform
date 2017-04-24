@@ -2,6 +2,7 @@ $color: rgb(32, 160, 255);
 .layout {
   // height: 100%;
   min-height: 100%;
+  position: relative;
   .top-bar {
     height: 60px;
     background-color: $color;

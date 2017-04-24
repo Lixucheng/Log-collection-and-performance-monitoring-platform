@@ -1,0 +1,38 @@
+.login-page {
+  .login-up {
+    height: 200px;
+    background-image: url('/imgs/register.png');
+    background-repeat: round;
+    overflow: hidden;
+    .title {
+      font-family: Courier;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+      font-size: 36px;
+      font-weight: bold;
+      margin: 0 0 28px 0;
+      color: white;
+      text-align: center;
+      margin-top: 70px;
+    }
+  }
+  .login-down {
+    padding: 80px;
+    .login-form {
+      width: 400px;
+      margin: auto;
+    }
+    .submit-btn{
+      width: 100%;
+    }
+  }
+  .footer {
+    border-top: 3px solid #305fa7;
+    line-height: 50px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    overflow: hidden;
+  }
+}
