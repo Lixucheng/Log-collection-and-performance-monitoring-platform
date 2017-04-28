@@ -21,9 +21,9 @@ module.exports = router => {
   });
 
   // 登陆
-  router.post('/login', async (ctx, next) => {
-    console.log(ctx.session.user);
+  router.post('/api/login', async (ctx, next) => {
     const body = ctx.request.body;
+    console.log('body', body);
     if (body.name && body.passWord) {
       const userList = await User.find({ name: body.name });
       if (userList.length === 0) {
@@ -32,7 +32,7 @@ module.exports = router => {
         const user = userList[0];
         if (user.passWord === body.passWord) {
           ctx.session.user = user;
-          ctx.cookies.set(cookieName, JSON.stringify({ name: user.name }));
+          ctx.cookies.set(cookieName, JSON.stringify({ name: user.name }), { httpOnly: false });
           ctx.body = 1; // 成功
         } else {
           ctx.body = -2; // 密码错误
@@ -45,8 +45,7 @@ module.exports = router => {
   });
 
   // 注销
-  router.post('/logout', async (ctx, next) => {
-    console.log(ctx.session.user);
+  router.post('/api/logout', async (ctx, next) => {
     const body = ctx.request.body;
     const sessionUser = ctx.session.user;
     if (body.name) {
@@ -58,8 +57,8 @@ module.exports = router => {
           expires: lastMonth
         });
       }
-    } else {
-      ctx.body = 1;
     }
+    ctx.body = 1;
   });
-}
+};
+

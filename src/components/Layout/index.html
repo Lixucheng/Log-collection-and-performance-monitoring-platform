@@ -6,9 +6,9 @@
       </li>
     </ul>
     <ul class="top-right">
-      <li class="nav-menu">
-        欢迎 {{ '李续铖' }} ，
-        <el-button type="text">退出</el-button>
+      <li class="nav-menu" v-if="User">
+        欢迎 {{ User.name }} ，
+        <el-button @click='logout' type="text">退出</el-button>
       </li>
     </ul>
   </div>

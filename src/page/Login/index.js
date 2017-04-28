@@ -1,5 +1,10 @@
 import template from './index.html';
 import './index.scss';
+import UserService from 'service/user';
+import {
+  Notification
+} from 'element-ui';
+
 
 export default {
   template,
@@ -44,10 +49,28 @@ export default {
     // });
   },
   methods: {
-    login() {
-      this.$refs['loginForm'].validate((valid) => {
+    async login() {
+      this.$refs['loginForm'].validate(async(valid) => {
         if (valid) {
-          alert('submit!');
+          const s = await UserService.login(this.User);
+          if (s === 1) {
+            // Notification.success({
+            //   title: 'ok',
+            // })
+            location.href = '/log/1'
+          } else if (s === -2) {
+            Notification.error({
+              title: '密码错误',
+            })
+          } else if (s === -1) {
+            Notification.error({
+              title: '用户不存在',
+            })
+          } else if (s === -2) {
+            Notification.error({
+              title: '密码错误',
+            })
+          }
         } else {
           console.log('error submit!!');
           return false;

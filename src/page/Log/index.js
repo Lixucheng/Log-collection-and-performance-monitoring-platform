@@ -11,7 +11,6 @@ export default {
   template,
   components: {
     Layout,
-
   },
   data() {
     return {

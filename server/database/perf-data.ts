@@ -1,6 +1,6 @@
 import db from './index';
 
-export interface IPerf extends db.Document {
+export interface IPerfData extends db.Document {
   type: string,
   name: string,
   value: number,
@@ -19,6 +19,6 @@ const perfSchema = new Schema({
   tags: String,
 });
 
-const Perf = db.model<IPerf>('Perf', perfSchema);
+const PerfData = db.model<IPerfData>('PerfData', perfSchema);
 
-export default Perf;
+export default PerfData;

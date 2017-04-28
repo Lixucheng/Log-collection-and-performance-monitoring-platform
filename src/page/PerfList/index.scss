@@ -1,0 +1,47 @@
+.perf-list-page {
+  .a-btn{
+    text-decoration: none;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .search-container {
+    border: 1px solid rgb(191, 203, 217);
+    border-radius: 5px;
+    margin: 10px;
+    .send,
+    .search {
+      padding: 10px;
+      margin-bottom: 0;
+      .el-form-item {
+        margin-bottom: 0;
+      }
+      &.search {
+        margin-top: 10px;
+      }
+      .title {
+        line-height: 36px;
+        font-size: 14px;
+        color: rgb(72, 87, 106);
+      }
+    }
+  }
+  .page-title {
+    height: 60px;
+    padding: 10px;
+    border-bottom: 2px solid #999;
+    div {
+      display: inline-block;
+    }
+    .title {
+      line-height: 40px;
+      font-size: 18px;
+    }
+    .add-btn {
+      float: right;
+      padding: 0 20px;
+      button {
+        padding: 10px 35px;
+      }
+    }
+  }
+}

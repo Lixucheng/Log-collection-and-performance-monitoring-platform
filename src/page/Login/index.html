@@ -4,7 +4,7 @@
     <div class="title">性能监控及日志搜集平台</div>
   </section>
   <section class="login-down">
-    <el-form ref="loginForm" :rules="rules" class='login-form' :label-position="'top'" label-width="80px" :model="User">
+    <el-form action='/login' ref="loginForm" :rules="rules" class='login-form' :label-position="'top'" label-width="80px" :model="User">
       <el-form-item label="登录名" prop="name">
         <el-input v-model="User.name"></el-input>
       </el-form-item>

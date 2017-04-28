@@ -1,6 +1,6 @@
 import template from './index.html';
 import './index.scss';
-// import Service from '@service';
+import UserService from 'service/user';
 
 export default {
   template,
@@ -10,12 +10,18 @@ export default {
       // User: Service.user
     }
   },
+  computed: {
+    User() {
+      return UserService.User;
+    }
+  },
   created() {
-    // Service.on('User', (User) => {
-    //     this.User = User;
-    // });
+
   },
   methods: {
-
+    logout() {
+      UserService.logout(this.User.name);
+      location.href = '/login';
+    }
   }
 }

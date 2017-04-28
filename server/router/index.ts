@@ -7,8 +7,8 @@ const router: any = new Router();
 
 // 心跳接口
 router.get('/api/live', async (ctx, next) => {
-    ctx.body = true;
-  });
+  ctx.body = true;
+});
 
 // 自动加载路由
 const loadDir = (dir) => {

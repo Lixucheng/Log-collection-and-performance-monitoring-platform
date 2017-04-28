@@ -2,10 +2,11 @@ import * as Koa from 'koa';
 import * as serve from 'koa-static';
 import router from './router';
 import Socket from './service/socket';
+import * as session from 'koa-session-minimal';
 
 const views = require('koa-views');
 const body = require('koa-bodyparser');
-const session = require("koa-session2");
+const redisStore = require('koa-redis');
 
 const helpers = require('../helpers/root');
 const app = new Koa();
@@ -19,7 +20,7 @@ app.use(async (ctx, next) => {
 });
 
 app.use(session({
-    key: "SESSIONID",
+  store: redisStore()
 }));
 
 app.use(body());
@@ -31,14 +32,20 @@ app.use(views(helpers.root('public', 'dist'), {}));
 
 
 app.use(router.routes())
-   .use(router.allowedMethods());
+  .use(router.allowedMethods());
 
 
 // 如果不是请求api，全部返回index.html
-app.use(async(ctx, next) => {
+app.use(async (ctx, next) => {
   await next();
+  const user = ctx['session'] && ctx['session'].user;
   if ((!/\/api.*/.test(ctx.url))) {
-    await ctx['render']('index');
+    if (!(/\/login.*/.test(ctx.url)) && !user) {
+      console.log('跳转');
+      ctx.redirect('/login');
+    } else {
+      await ctx['render']('index');
+    }
   }
 });
 
