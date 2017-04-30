@@ -22,7 +22,7 @@ const routes = [
   { path: '/login', name: 'login', component: Login },
   { path: '/perf/list', name: 'perfList', component: PerfList },
   { path: '/perf/detail/:id/user', name: 'PerfUser', component: PerfUser },
-  { path: '/perf/detail/:id/data/namelist', name: 'PerfDataNameList', component: PerfDataNameList },
+  { path: '/perf/detail/:id/namelist', name: 'PerfDataNameList', component: PerfDataNameList },
 ]
 
 // 3. 创建 router 实例，然后传 `routes` 配置

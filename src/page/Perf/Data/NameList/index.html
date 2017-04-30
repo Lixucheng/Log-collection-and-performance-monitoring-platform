@@ -1,11 +1,38 @@
 <perf-layout :loading='loading' @getProject='getProject' :projectId='projectId'>
 
   <div class="title" slot='title'>
-    {{project.name}} 的所有指标  
+    {{project.name}} 的所有指标
   </div>
   <div class="body perf-detail-page" slot='body'>
-    123
-    
+    <el-row class='search-container'>
+      <el-row class='search'>
+        <el-form :model="searchData">
+          <el-form-item >
+            <el-input v-model="searchData.name" :placeholder="'搜索 ' + list.length + ' 个指标'"></el-input>
+          </el-form-item>
+        </el-form>
+      </el-row>
+
+    </el-row>
+    <el-table :data="showList" stripe style="width: 100%">
+      <el-table-column label="指标">
+        <template scope="scope">
+          {{scope.row}}
+        </template>
+      </el-table-column>
+     
+      <el-table-column label="操作">
+        <template scope="scope">
+          <a :href="'detail/' + scope.row" class='el-button el-button--small el-button--default a-btn'>查看源数据</a>
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <div v-if='pagination.totalPage > 1' class="pageination-container">
+      <el-pagination :current-page='pagination.currentPage' @current-change='pageChange' layout="prev, pager, next" :page-count='pagination.totalPage'
+        :page-size="10">
+      </el-pagination>
+    </div>
 
   </div>
 

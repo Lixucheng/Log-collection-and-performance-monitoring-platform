@@ -43,11 +43,6 @@ export default {
       }
     }
   },
-  created() {
-    // Service.on('User', (User) => {
-    //     this.User = User;
-    // });
-  },
   methods: {
     async login() {
       this.$refs['loginForm'].validate(async(valid) => {

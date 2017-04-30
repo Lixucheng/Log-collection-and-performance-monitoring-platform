@@ -49,30 +49,43 @@ module.exports = router => {
   });
 
 
+  const perpage = 1000;
   router.post('/api/perf/data/add', async (ctx, next) => {
     const obj = ctx.request.body;
     const data = obj.data;
+    console.log(JSON.stringify(obj));
     await data.reduce(async (p, item) => {
       await p;
-      const entity = new PerfData({
-        type: item.type,
-        name: Object.keys(item.metrics)[0],
-        value: item.metrics[Object.keys(item.metrics)[0]],
-        tags: JSON.stringify(item.tags),
-        time: new Date,
-        project: obj.env.token
-      });
-      await entity.save();
+      await Object.keys(item.metrics).reduce(async (perf, curr) => {
+        await perf;
+        const entity = new PerfData({
+          type: item.type,
+          name: curr,
+          value: item.metrics[curr],
+          tags: JSON.stringify(item.tags),
+          time: new Date,
+          project: obj.env.token
+        });
+        await entity.save();
+      }, null);
     }, null);
     // const lxc = await User.findOne({name: '李续铖'});
     // console.log('findOne:', lxc);
     ctx.body = true;
   });
+
   router.get('/api/perf/data/namelist', async (ctx, next) => {
     const id = ctx.query.id;
     const page = ctx.query.page;
-    ctx.body = await PerfData['getAllName'](id);
-
-    // ctx.body = await PerfData.collection.group({ name: true }, function() {}, { });
+    const key = ctx.query.key;
+    let list = await PerfData['getAllName'](id);
+    if (key) {
+      list = list.filter(e => e.indexOf(key) > -1);
+    }
+    ctx.body = {
+      total: Math.ceil(list.length / perpage),
+      list: list.splice(page * perpage - perpage, perpage)
+    };
   });
-}
+};
+
