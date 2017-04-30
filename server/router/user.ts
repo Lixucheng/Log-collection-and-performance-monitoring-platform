@@ -60,5 +60,10 @@ module.exports = router => {
     }
     ctx.body = 1;
   });
+
+  router.get('/api/user/query', async (ctx, next) => {
+    const name = ctx.query.name;
+    ctx.body = await User['queryByName'](name);
+  });
 };
 

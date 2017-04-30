@@ -2,8 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import 'element-ui/lib/theme-default/index.css'
 import Log from './page/Log'
-import Perf from './page/Perf'
-import PerfList from './page/PerfList'
+import PerfList from './page/Perf/List'
+import PerfUser from './page/Perf/User'
+import PerfDataNameList from './page/Perf/Data/NameList'
 import Login from './page/Login'
 import './style/theme/index.css';
 import './style/index.scss';
@@ -19,10 +20,9 @@ const routes = [
   { path: '/log/:page', name: 'log', component: Log },
   { path: '/log', name: 'logIndex', component: Log },
   { path: '/login', name: 'login', component: Login },
-  { path: '/perf/index', name: 'perfIndex', component: Perf },
   { path: '/perf/list', name: 'perfList', component: PerfList },
-  { path: '/perf/detail', name: 'perfDetail', component: Perf },
-  
+  { path: '/perf/detail/:id/user', name: 'PerfUser', component: PerfUser },
+  { path: '/perf/detail/:id/data/namelist', name: 'PerfDataNameList', component: PerfDataNameList },
 ]
 
 // 3. 创建 router 实例，然后传 `routes` 配置
@@ -32,7 +32,6 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to.name === 'login' , UserService.User)
   if (to.name === 'login' || UserService.User) {
      next();
   } else {

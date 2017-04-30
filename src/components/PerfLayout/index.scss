@@ -1,0 +1,37 @@
+.perf-page {
+  overflow: hidden;
+  flex: 1;
+  display: flex;
+  .left-area {
+    flex: 1;
+    background-color: #eef1f6;
+    .project-title {
+      height: 50px;
+      line-height: 50px;
+      /* text-align: center; */
+      padding-left: 30px;
+      font-size: 20px;
+      color: #48576a;
+      border-bottom: 2px solid #305fa7;
+    }
+  }
+  .right-area {
+    .title {
+      height: 50px;
+      line-height: 50px;
+      padding-left: 20px;
+      font-size: 20px;
+      color: #48576a;
+      font-weight: 200;
+      .title-btn {
+        position: absolute;
+        right: 10px;
+        margin-top: 7px;
+        margin-right: 10px;
+      }
+    }
+    .body {
+      padding: 20px;
+    }
+  }
+}

@@ -17,6 +17,13 @@ const userSchema = new Schema({
   age : Number,
   passWord : String,
 });
+
+userSchema.statics.queryByName = async function (name) {
+  return await this.find({
+    name: new RegExp(name, 'i')
+  });
+};
+
 const User = db.model<IUser>('User', userSchema);
 
 

@@ -4,7 +4,7 @@ import UserService from 'service/user';
 
 export default {
   template,
-  props: ['title', 'loading'],
+  props: ['title', 'index', 'loading', 'footer'],
   data() {
     return {
       // User: Service.user

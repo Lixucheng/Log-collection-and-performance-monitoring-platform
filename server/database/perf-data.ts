@@ -5,6 +5,8 @@ export interface IPerfData extends db.Document {
   name: string,
   value: number,
   tags: string,
+  projectId: string,
+  time: Date
 }
 
 
@@ -17,8 +19,16 @@ const perfSchema = new Schema({
   name: String,
   value: Number,
   tags: String,
+  project: { type: ObjectId, ref: 'PerfProject' },
+  time: Date
 });
-
+// 获取指标
+perfSchema.statics.getAllName = async function (id) {
+  const p = await this.distinct('name');
+  return p;
+};
 const PerfData = db.model<IPerfData>('PerfData', perfSchema);
 
 export default PerfData;
+
+

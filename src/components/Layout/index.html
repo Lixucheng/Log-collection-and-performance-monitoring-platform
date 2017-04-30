@@ -2,7 +2,7 @@
   <div class="top-bar">
     <ul class="top-left">
       <li class="nav-menu">
-        <a href="/log">{{ title }}</a>
+        <a :href="index">{{ title }}</a>
       </li>
     </ul>
     <ul class="top-right">
@@ -15,7 +15,7 @@
   <div class="main-body">
     <slot>默认界面</slot>
   </div>
-  <div class="footer">
+  <div class="footer" v-if='footer !== "hidden"'>
     Copyright © 2017 All Rights Reserved lixucheng.cn
   </div>
 </div>

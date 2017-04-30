@@ -2,27 +2,6 @@ import PerfData from '../database/perf-data';
 import PerfProject from '../database/perf-project';
 
 module.exports = router => {
-  router.post('/api/perf/add', async (ctx, next) => {
-    console.log(JSON.stringify(ctx.request.body));
-    const obj = ctx.request.body;
-    const data = obj.data;
-    for (let i = 0; i < data.length; i++) {
-      const item = data[i];
-      const arvind = new PerfData({
-        type: item.type,
-        name: Object.keys(item.metrics)[0],
-        value: item.metrics[Object.keys(item.metrics)[0]],
-        tags: JSON.stringify(item.tags),
-      });
-      await arvind.save();
-      console.log(arvind);
-    }
-    // const lxc = await User.findOne({name: '李续铖'});
-    // console.log('findOne:', lxc);
-
-    ctx.body = true;
-  });
-
   router.post('/api/perf/projects/add', async (ctx, next) => {
     const user = ctx.session.user;
     const body = ctx.request.body;
@@ -52,5 +31,48 @@ module.exports = router => {
     const user = ctx.session.user;
     const id = ctx.query.id;
     ctx.body = await PerfProject['removeByUser'](id, user);
+  });
+  router.get('/api/perf/projects/detail', async (ctx, next) => {
+    const user = ctx.session.user;
+    const id = ctx.query.id;
+    ctx.body = await PerfProject['getDetailById'](id, user);
+  });
+  router.get('/api/perf/projects/addUser', async (ctx, next) => {
+    const id = ctx.query.id;
+    const userId = ctx.query.userId;
+    ctx.body = await PerfProject['addUser'](id, userId);
+  });
+  router.get('/api/perf/projects/removeUser', async (ctx, next) => {
+    const id = ctx.query.id;
+    const userId = ctx.query.userId;
+    ctx.body = await PerfProject['removeUser'](id, userId);
+  });
+
+
+  router.post('/api/perf/data/add', async (ctx, next) => {
+    const obj = ctx.request.body;
+    const data = obj.data;
+    await data.reduce(async (p, item) => {
+      await p;
+      const entity = new PerfData({
+        type: item.type,
+        name: Object.keys(item.metrics)[0],
+        value: item.metrics[Object.keys(item.metrics)[0]],
+        tags: JSON.stringify(item.tags),
+        time: new Date,
+        project: obj.env.token
+      });
+      await entity.save();
+    }, null);
+    // const lxc = await User.findOne({name: '李续铖'});
+    // console.log('findOne:', lxc);
+    ctx.body = true;
+  });
+  router.get('/api/perf/data/namelist', async (ctx, next) => {
+    const id = ctx.query.id;
+    const page = ctx.query.page;
+    ctx.body = await PerfData['getAllName'](id);
+
+    // ctx.body = await PerfData.collection.group({ name: true }, function() {}, { });
   });
 }

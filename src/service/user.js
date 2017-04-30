@@ -23,6 +23,10 @@ export function logout(name) {
   });
 }
 
+export function queryUser(name) {
+  return fetch(`/api/user/query?name=${name}`);  
+}
+
 
 class User {
   constructor() {
@@ -49,6 +53,9 @@ class User {
     if (ret === 1) {
       this.User = null;
     }
+  }
+  async queryUser(name) {
+    return await queryUser(name);
   }
 }
 const user = new User();

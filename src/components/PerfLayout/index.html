@@ -1,0 +1,34 @@
+<layout :loading='loading' title='性能监控平台' index='/perf/list'>
+  <div v-title="'性能监控平台'"></div>
+  <div class="perf-page">
+    <el-col class='left-area' :span="4">
+      <div class="project-title">{{ project && project.name }}</div>
+      <el-menu class="el-menu-vertical-demo" :router='true'>
+        <el-submenu index="1">
+          <template slot="title"><i class="el-icon-document"></i> 网站</template>
+          <el-menu-item index="1-1">总览</el-menu-item>
+          <el-menu-item index="1-2">界面</el-menu-item>
+          <el-menu-item index="1-3">浏览器</el-menu-item>
+          <el-menu-item index="1-4">操作系统</el-menu-item>
+        </el-submenu>
+        <el-submenu index="2">
+          <template slot="title"><i class="el-icon-menu"></i>数据</template>
+          <el-menu-item index="2-1">仪表盘</el-menu-item>
+          <el-menu-item index="2-2">图标</el-menu-item>
+          <el-menu-item index="data/namelist">数据</el-menu-item>
+        </el-submenu>
+        <el-submenu index="3">
+          <template slot="title"><i class="el-icon-setting"></i>设置</template>
+          <el-menu-item index="3-1">基本设置</el-menu-item>
+          <el-menu-item index="user">成员</el-menu-item>
+          <el-menu-item index="3-3">接入向导</el-menu-item>
+        </el-submenu>
+      </el-menu>
+    </el-col>
+    <el-col class="right-area" :span='20'>
+      <slot name="title"></slot>
+      <slot name="body"></slot>
+    </el-col>
+  </div>
+
+</layout>
