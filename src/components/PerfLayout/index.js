@@ -1,13 +1,12 @@
 import template from './index.html';
 import './index.scss';
-import UserService from 'service/user';
 import Layout from 'src/components/Layout';
 import {
   getProjectDetail,
 } from 'service/perf';
 export default {
   template,
-  props: ['title', 'loading', 'projectId'],
+  props: ['title', 'loading', 'projectId', 'active'],
   components: {
     Layout,
   },

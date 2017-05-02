@@ -1,26 +1,22 @@
 import template from './index.html';
 import './index.scss';
 // import Service from '@service';
-import Layout from 'src/components/Layout';
+import PerfLayout from 'src/components/PerfLayout';
 
 
 export default {
   template,
   components: {
-    Layout,
+    PerfLayout,
   },
   data() {
     return {
       loading: false,
-      // User: Service.user
+      projectId: this.$route.params.id,
     }
   },
-  created() {
-    // Service.on('User', (User) => {
-    //     this.User = User;
-    // });
-  },
+  created() {},
   methods: {
-
+    getProject() {}
   }
 }

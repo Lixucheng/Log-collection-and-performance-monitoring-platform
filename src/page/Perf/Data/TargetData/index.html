@@ -1,0 +1,17 @@
+<perf-layout :loading='loading' :projectId='projectId' active='targetList'>
+
+  <div class="title" slot='title'>
+    {{ selectTarget }} 维度信息
+    <a href="targetList" class='title-btn el-button el-button--default a-btn'>列表</a>
+  </div>
+  <div class="body perf-target-data-page" slot='body'>
+    <div v-for='e in list'>
+      <el-alert :title="e.name" type="info" close-text="重置维度">
+      </el-alert>
+      <div class='tag-value-container'>
+        <div class='tag-value' v-for='value in e.value'>{{value}}</div>
+      </div>
+    </div>
+  </div>
+
+</perf-layout>

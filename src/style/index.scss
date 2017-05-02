@@ -2,12 +2,29 @@ body {
   margin: 0;
   height: 100%;
 }
-html{
+
+html {
   height: 100%;
 }
-#app{
+
+#app {
   height: 100%;
 }
-.fa{
+
+.fa {
   margin-right: 3px;
+}
+
+.a-btn {
+  text-decoration: none;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.title-btn {
+  position: absolute;
+  right: 10px;
+  margin-top: 7px;
+  margin-right: 10px;
+  width: 70px;
 }

@@ -1,4 +1,4 @@
-<perf-layout :loading='loading' @getProject='getProject' :projectId='projectId'>
+<perf-layout :loading='loading' @getProject='getProject' :projectId='projectId' active='targetList'>
 
   <div class="title" slot='title'>
     {{project.name}} 的所有指标
@@ -23,7 +23,8 @@
      
       <el-table-column label="操作">
         <template scope="scope">
-          <a :href="'detail/' + scope.row" class='el-button el-button--small el-button--default a-btn'>查看源数据</a>
+          <a :href="'TargetData?target=' + scope.row" class='el-button el-button--small el-button--default a-btn'>查看源数据</a>
+          <a :href="'TargetTable?target=' + scope.row" class='el-button el-button--small el-button--default a-btn'>图表</a>
         </template>
       </el-table-column>
     </el-table>

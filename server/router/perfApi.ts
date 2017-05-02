@@ -62,7 +62,7 @@ module.exports = router => {
           type: item.type,
           name: curr,
           value: item.metrics[curr],
-          tags: JSON.stringify(item.tags),
+          tags: item.tags,
           time: new Date,
           project: obj.env.token
         });
@@ -86,6 +86,23 @@ module.exports = router => {
       total: Math.ceil(list.length / perpage),
       list: list.splice(page * perpage - perpage, perpage)
     };
+  });
+
+  router.get('/api/perf/data/targetData', async (ctx, next) => {
+    const id = ctx.query.id;
+    const target = ctx.query.target;
+    ctx.body = await PerfData['getTargetTags'](id, target);
+  });
+
+  router.get('/api/perf/data/getAllTargetTags', async (ctx, next) => {
+    const id = ctx.query.id;
+    ctx.body = await PerfData['getAllTargetTags'](id);
+  });
+
+  router.get('/api/perf/data/test', async (ctx, next) => {
+    const id = ctx.query.id;
+    const target = ctx.query.target;
+    ctx.body = await PerfData['getAllTargetTags'](id, target);
   });
 };
 

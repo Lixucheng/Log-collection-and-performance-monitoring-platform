@@ -1,0 +1,43 @@
+{
+  "extends": [
+    "vue"
+  ],
+  "parser": "babel-eslint",
+  "rules": {
+    "no-shadow": [1, {}],
+    // export default 设为warning
+    "import/prefer-default-export": [1, {}],
+    // 参数不能被修改禁用
+    "no-param-reassign": "warn",
+    // 缩进
+    "indent": [2, 2, { "SwitchCase": 1 }],
+    "no-plusplus": "warn",
+    "semi": "off",
+    "comma-dangle": "off",
+    "jsx-quotes": ["error", "prefer-double"],
+    "space-before-function-paren": ["error", {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "always"
+    }],
+    "no-nested-ternary": "warn",
+    "import/no-named-as-default-member": "warn",
+    "no-empty": "warn",
+    "consistent-return": "warn",
+    "no-mixed-operators": "warn",
+    "jsx-a11y/no-static-element-interactions": "warn",
+    "class-methods-use-this": "warn",
+    "prefer-rest-params": "warn",
+    "no-underscore-dangle": "off",
+    "global-require": "warn",
+    "camelcase": ["warn", {
+      "properties": "never"
+    }],
+    "no-return-await": "off"
+  },
+  "globals": {
+    "fetch": true,
+    "location" : true,
+    "alert": true  
+  } 
+}

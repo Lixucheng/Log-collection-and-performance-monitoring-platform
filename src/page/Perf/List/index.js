@@ -22,21 +22,21 @@ export default {
         type: '',
       },
       types: [{
-          name: '全部',
-          value: null,
-        },
-        {
-          name: 'nwjs',
-          value: 'nwjs',
-        },
-        {
-          name: 'electron',
-          value: 'electron',
-        },
-        {
-          name: '其他',
-          value: 'other',
-        }
+        name: '全部',
+        value: null,
+      },
+      {
+        name: 'nwjs',
+        value: 'nwjs',
+      },
+      {
+        name: 'electron',
+        value: 'electron',
+      },
+      {
+        name: '其他',
+        value: 'other',
+      }
       ],
       projectData: {
         type: '',
@@ -44,14 +44,14 @@ export default {
       },
       rojectRules: {
         name: [{
-            required: true,
-            message: '请输入项目名称',
-          },
-          {
-            min: 3,
-            max: 20,
-            message: '长度在 3 到 20 个字符',
-          }
+          required: true,
+          message: '请输入项目名称',
+        },
+        {
+          min: 3,
+          max: 20,
+          message: '长度在 3 到 20 个字符',
+        }
         ],
         type: [{
           required: true,
@@ -90,7 +90,7 @@ export default {
       return ret;
     },
     async addProject() {
-      this.$refs.projectForm.validate(async(valid) => {
+      this.$refs.projectForm.validate(async (valid) => {
         if (valid) {
           this.addDialogShow = false;
           const ret = await this.postNewProject();
