@@ -1,4 +1,5 @@
 import db from './index';
+import { EventEmitter } from 'events';
 
 export interface IPerfData extends db.Document {
   type: string,
@@ -57,12 +58,60 @@ perfSchema.statics.getAllTargetTags = async function (id) {
   }, null);
   return ret;
 };
+function avg(list) {
+  if (!list) return;
+  const sum = list.reduce((pre, curr) => {
+    return pre + curr;
+  }, 0);
+  return sum / list.length;
+}
+function emit(a, b) {
+
+}
+
+
+perfSchema.statics.getFilterData = async function (option) {
+  const ret = await this.mapReduce({
+    map: function () {
+      var time = +this.time / (1000 * 60);
+      emit(Math.ceil(time), {
+        value: this.value,
+        type: this.type
+      });
+    },
+    reduce: function (key, values) {
+      function avg(list) {
+        if (!list) return;
+        const sum = list.reduce((pre, curr) => {
+          return pre + curr.value;
+        }, 0);
+        return sum / list.length;
+      }
+      if (values[0] === 'counter') {
+        return values.reduce((pre, curr) => {
+          return pre + curr.value;
+        }, 0);
+      }
+      return avg(values);
+    },
+    out: { inline: 1 },
+    query: option
+  }
+  );
+  // console.log(ret);
+  return ret;
+};
 
 
 
 // 聚合
 perfSchema.statics.test = async function (id) {
   return await this.aggregate([
+    {
+      $match: {
+        name: "time.1",
+      }
+    },
     {
       $project: {
         name: 1,
@@ -76,9 +125,27 @@ perfSchema.statics.test = async function (id) {
   ]);
 };
 
+perfSchema.statics.addData = async function (name) {
+  const n = new Date();
+  let start = +new Date(n.getFullYear(), n.getMonth(), n.getDate());
+  for (let i = 0; i < 2000; i++) {
+    const now = new Date(start += 1000 * 60);
+    const entity = new PerfData({
+      type: 'counter',
+      name,
+      value: Math.ceil(Math.random() * 10),
+      tags: {
+        name: Math.ceil(Math.random() * 10),
+      },
+      time: now,
+      project: '5905846023a7757cc466d96c'
+    });
+    await entity.save();
+  }
+};
+
+
 
 const PerfData = db.model<IPerfData>('PerfData', perfSchema);
 
 export default PerfData;
-
-

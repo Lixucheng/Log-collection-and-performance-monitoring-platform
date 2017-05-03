@@ -99,10 +99,89 @@ module.exports = router => {
     ctx.body = await PerfData['getAllTargetTags'](id);
   });
 
+
+  /* {
+      'time.1': {
+          deviceOs: {
+            open: false,
+            value: 'darwin-x64'
+          },
+          name: {
+            open: false,
+            value: 'lxc'
+          }
+      }
+    } */
+  router.post('/api/perf/data/getFilterData', async (ctx, next) => {
+    console.log(ctx.request.body);
+    const body = ctx.request.body.option;
+    const timeZone = ctx.request.body.timeZone;
+
+    const ret = [];
+    const targets = Object.keys(body);
+    for (let i = 0; i < targets.length; i++) {
+      const query = {
+        name: targets[i],
+        time: { $gt: new Date(timeZone[0]), $lt: new Date(timeZone[1]) },
+      }
+      const target = body[targets[i]];
+      const tags = Object.keys(target);
+      for (let j = 0; j < tags.length; j++) {
+        const tag = target[tags[j]];
+        if (tag.open && tag.value) {
+          query['tags.' + tags[j]] = tag.value;
+        }
+      }
+      const data = await PerfData['getFilterData'](query);
+      ret.push({
+        name: targets[i],
+        data: format(data, timeZone, data && data[0].value.type),
+      });
+    }
+    console.log(ret);
+    ctx.body = ret;
+  });
+
+  /*[ {value: ; _id: } ]*/
+  function format(data, timeZone, type) {
+    // console.log(data);
+    let start = +new Date(timeZone[0]);
+    const finial = +new Date(timeZone[1]);
+    const count = Math.ceil(((+new Date(timeZone[1])) - (+new Date(timeZone[0]))) / 60000);
+    const zone = Math.ceil(count / 100); // 分钟
+    console.log('间隔：', zone);
+    console.log('timeZone:', timeZone);
+    const obj = {};
+    while (start + zone * 60 * 1000 <= finial) {
+      const now = new Date(start);
+      const end = start + zone * 60 * 1000;
+      const list = data.filter(e => e._id * 60000 >= start && e._id * 60000 < end);
+      console.log('add one:', list.length)
+      const name = [now.getMonth() + 1, now.getDate()].join('-') + ' ' + now.getHours() + ':' + now.getMinutes();
+      if (type === 'counter') {
+        obj[name] = list.reduce((pre, cur) => {
+          return pre + cur.value.value;
+        }, 0);
+      } else {
+        obj[name] = avg(list);
+      }
+      start += zone * 60 * 1000;
+    }
+    // console.log('format', obj)
+    return obj;
+  }
+  function avg(list) {
+    if (!list) return;
+    const sum = list.reduce((pre, curr) => {
+      return pre + curr.value.value;
+    }, 0);
+    return sum / list.length;
+  }
+
   router.get('/api/perf/data/test', async (ctx, next) => {
     const id = ctx.query.id;
     const target = ctx.query.target;
-    ctx.body = await PerfData['getAllTargetTags'](id, target);
+    ctx.body = await PerfData['addData']('count.test');
   });
 };
 

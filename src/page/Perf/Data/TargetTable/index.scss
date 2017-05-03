@@ -1,9 +1,23 @@
 .perf-target-table-page {
   .table {
+    margin-top: 40px;
     width: 100%;
     height: 500px;
   }
-  .el-autocomplete{
+  .el-autocomplete {
     width: 300px;
+  }
+  .active-tag {
+    padding: 5px;
+    .tag-title {
+      display: inline-block;
+      width: 100px;
+    }
+    .del-btn{
+      margin-left: 10px;
+    }
+  }
+  .add-tag-select{
+    margin: 5px 0;
   }
 }
