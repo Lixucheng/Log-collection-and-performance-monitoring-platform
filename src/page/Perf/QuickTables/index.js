@@ -55,8 +55,14 @@ export default {
     }
   },
   async created() {
-    // await this.refresh();
+    this.refresh();
     window.v = this;
+  },
+  watch: {
+    '$route.query': function () {
+      this.tag = this.$route.query.tag
+      this.refresh();
+    }
   },
   methods: {
     async refresh() {
