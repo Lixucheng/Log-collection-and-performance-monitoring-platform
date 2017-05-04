@@ -197,7 +197,7 @@ export default {
     },
     formatData(data) {
       return {
-        names: data.map(e => e.name),
+        name: data.map(e => e.name),
         x: (data && data.length) ? Object.keys(data[0].data) : [],
         y: data.map(e => ({
           name: e.name,
@@ -205,15 +205,16 @@ export default {
           smooth: true,
           symbol: 'none',
           sampling: 'average',
-          data: (data && data.length) ? Object.values(data[0].data) : []
+          data: Object.values(e.data) || []
         }))
       }
     },
     async getData() {
-      console.log('timeZone', this.timeZone)
-      const data = await getFilterData(this.showTarget, this.timeZone);
+      console.log('this.showTarget ', this.showTarget)
+      const data = await getFilterData(this.projectId, this.showTarget, this.timeZone);
       console.log('data:', data);
       const flash = this.formatData(data);
+      console.log('flash', flash)
       this.myChart.setOption({
         legend: {
           data: flash.name

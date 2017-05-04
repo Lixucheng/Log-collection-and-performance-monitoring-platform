@@ -12,6 +12,7 @@ export interface IPerfData extends db.Document {
 
 
 const ObjectId = db.Schema.Types.ObjectId;
+const ToObjectId = db.Types.ObjectId;
 
 const Schema = db.Schema;
 const perfSchema = new Schema({
@@ -58,15 +59,15 @@ perfSchema.statics.getAllTargetTags = async function (id) {
   }, null);
   return ret;
 };
-function avg(list) {
-  if (!list) return;
-  const sum = list.reduce((pre, curr) => {
-    return pre + curr;
-  }, 0);
-  return sum / list.length;
-}
+
 function emit(a, b) {
 
+}
+
+class Array {
+  static avg(list) {
+    return list;
+  }
 }
 
 
@@ -74,32 +75,67 @@ perfSchema.statics.getFilterData = async function (option) {
   const ret = await this.mapReduce({
     map: function () {
       var time = +this.time / (1000 * 60);
-      emit(Math.ceil(time), {
-        value: this.value,
-        type: this.type
-      });
+      emit(Math.ceil(time), this.value);
     },
     reduce: function (key, values) {
-      function avg(list) {
-        if (!list) return;
-        const sum = list.reduce((pre, curr) => {
-          return pre + curr.value;
-        }, 0);
-        return sum / list.length;
+      if (values[0].type === 'counter') {
+        return  values.reduce((pre, curr) => pre + curr, 0);
+      } else {
+        return  Array.avg(values);
       }
-      if (values[0] === 'counter') {
-        return values.reduce((pre, curr) => {
-          return pre + curr.value;
-        }, 0);
-      }
-      return avg(values);
     },
     out: { inline: 1 },
     query: option
   }
   );
-  // console.log(ret);
+  console.log(ret);
   return ret;
+};
+
+perfSchema.statics.getTagValues = async function (project, tag, timeZone) {
+  const match = {
+    $match: {
+      project: ToObjectId(project),
+      // 'tags.name': { $ne: null }
+      time: {
+        $gte: new Date(timeZone[0]),
+        $lt: new Date(timeZone[1])
+      }
+    }
+  };
+  match.$match['tags.' + tag] = { $ne: null };
+  const group = {
+    $group: {
+      _id: {
+        tagValue: ''
+      }, value: { $sum: "$value" }
+    }
+  };
+  group.$group._id.tagValue = '$tags.' + tag;
+  const count = await this.aggregate([
+    match,
+    {
+      $project: {
+        name: 1,
+        type: 1,
+        value: 1,
+        tags: 1,
+      }
+    },
+    group,
+    { $sort: { value: 1 } }
+  ]);
+
+  const query = match.$match;
+  const dataList = [];
+  for (let i = 0; i < count.length; i++) {
+    query['tags.' + tag] = count[i]._id.tagValue;
+    const data = await this.getFilterData(query);
+    dataList.push(data);
+  }
+  return {
+    count, dataList
+  }
 };
 
 
@@ -137,6 +173,25 @@ perfSchema.statics.addData = async function (name) {
       tags: {
         name: Math.ceil(Math.random() * 10),
       },
+      time: now,
+      project: '5905846023a7757cc466d96c'
+    });
+    await entity.save();
+  }
+};
+perfSchema.statics.addTag = async function (name, count) {
+  const n = new Date();
+  let start = +new Date(n.getFullYear(), n.getMonth(), n.getDate());
+  const tags = {};
+  tags[name] = Math.ceil(Math.random() * 10);
+  for (let i = 0; i < 100; i++) {
+    const now = new Date(start += 1000 * 60);
+    console.log('addTags', tags)
+    const entity = new PerfData({
+      type: 'counter',
+      name: 'counter.tags',
+      value: 1,
+      tags,
       time: now,
       project: '5905846023a7757cc466d96c'
     });

@@ -3,12 +3,8 @@ import './index.scss';
 // import Service from '@service';
 import PerfLayout from 'src/components/PerfLayout';
 import {
-  getProjectDetail,
-} from 'service/perf';
-import {
   getAllNameList,
 } from 'service/perf-data';
-import UserService from 'service/user';
 
 export default {
   template,

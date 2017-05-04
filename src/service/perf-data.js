@@ -15,12 +15,16 @@ export function getAllTargetTags(option) {
   return fetch(`/api/perf/data/getAllTargetTags?${queryString.stringify(option)}`);
 }
 
-export function getFilterData(option, timeZone) {
+export function getFilterData(project, option, timeZone) {
   return fetch(`/api/perf/data/getFilterData`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ option, timeZone }),
+    body: JSON.stringify({ project, option, timeZone }),
   });
+}
+
+export function getTagValues(option) {
+  return fetch(`/api/perf/data/getTagValues?${queryString.stringify(option)}`);
 }

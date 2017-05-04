@@ -8,6 +8,7 @@ import PerfUser from './page/Perf/User'
 import PerfDataTargetList from './page/Perf/Data/TargetList'
 import PerfDataTargetTable from './page/Perf/Data/TargetTable'
 import PerfDataTargetData from './page/Perf/Data/TargetData'
+import PerfDataQuickTable from './page/Perf/QuickTables'
 import Login from './page/Login'
 import './style/theme/index.css';
 import './style/index.scss';
@@ -63,6 +64,11 @@ const routes = [{
   path: '/perf/detail/:id/TargetData',
   name: 'PerfDataTargetData',
   component: PerfDataTargetData
+},
+{
+  path: '/perf/detail/:id/quickTable',
+  name: 'PerfDataQuickTable',
+  component: PerfDataQuickTable
 },
 ]
 

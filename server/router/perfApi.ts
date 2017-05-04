@@ -116,11 +116,13 @@ module.exports = router => {
     console.log(ctx.request.body);
     const body = ctx.request.body.option;
     const timeZone = ctx.request.body.timeZone;
+    const project = ctx.request.body.project;
 
     const ret = [];
     const targets = Object.keys(body);
     for (let i = 0; i < targets.length; i++) {
       const query = {
+        project,
         name: targets[i],
         time: { $gt: new Date(timeZone[0]), $lt: new Date(timeZone[1]) },
       }
@@ -132,35 +134,39 @@ module.exports = router => {
           query['tags.' + tags[j]] = tag.value;
         }
       }
+      console.log('query:', query);
+      const one = await PerfData.findOne(query)
       const data = await PerfData['getFilterData'](query);
-      ret.push({
-        name: targets[i],
-        data: format(data, timeZone, data && data[0].value.type),
-      });
+      // console.log('data:', data);
+      if (data && data.length) {
+        ret.push({
+          name: targets[i],
+          data: format(data, timeZone, one && one.type),
+        });
+      }
     }
-    console.log(ret);
+    // console.log(ret);
     ctx.body = ret;
   });
 
   /*[ {value: ; _id: } ]*/
   function format(data, timeZone, type) {
-    // console.log(data);
+    console.log('type:', type);
+    // console.log('format', data);
     let start = +new Date(timeZone[0]);
     const finial = +new Date(timeZone[1]);
     const count = Math.ceil(((+new Date(timeZone[1])) - (+new Date(timeZone[0]))) / 60000);
     const zone = Math.ceil(count / 100); // 分钟
-    console.log('间隔：', zone);
-    console.log('timeZone:', timeZone);
     const obj = {};
     while (start + zone * 60 * 1000 <= finial) {
       const now = new Date(start);
       const end = start + zone * 60 * 1000;
       const list = data.filter(e => e._id * 60000 >= start && e._id * 60000 < end);
-      console.log('add one:', list.length)
+      // console.log('add one:', list.length, list)
       const name = [now.getMonth() + 1, now.getDate()].join('-') + ' ' + now.getHours() + ':' + now.getMinutes();
       if (type === 'counter') {
         obj[name] = list.reduce((pre, cur) => {
-          return pre + cur.value.value;
+          return pre + cur.value;
         }, 0);
       } else {
         obj[name] = avg(list);
@@ -171,17 +177,35 @@ module.exports = router => {
     return obj;
   }
   function avg(list) {
-    if (!list) return;
+    if (list.length === 0) return 0;
     const sum = list.reduce((pre, curr) => {
-      return pre + curr.value.value;
+      // console.log(pre, curr)
+      return pre + curr.value;
     }, 0);
+    if (sum == 0) return 0;
     return sum / list.length;
   }
+
+
+  router.get('/api/perf/data/getTagValues', async (ctx, next) => {
+    const id = ctx.query.id;
+    const tag = ctx.query.tag;
+    const timeZone = ctx.query.timeZone;
+    console.log(ctx.query)
+    const data = await PerfData['getTagValues'](id, tag, timeZone);
+    data.dataList.forEach((e, i, array) => {
+      array[i] = format(e, timeZone, 'counter');
+    });
+    ctx.body = data;
+  });
 
   router.get('/api/perf/data/test', async (ctx, next) => {
     const id = ctx.query.id;
     const target = ctx.query.target;
-    ctx.body = await PerfData['addData']('count.test');
+    // await PerfData['addTag']('browser');
+    // await PerfData['addTag']('deviceOs');
+    // ctx.body = await PerfData['addTag']('page');
+    ctx.body = await PerfData['getTagValues']('5905846023a7757cc466d96c', 'page')
   });
 };
 

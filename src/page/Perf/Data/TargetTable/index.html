@@ -36,7 +36,6 @@
       <el-table-column width='400' label="分析维度">
         <template scope="scope">
           <div class='active-tag' v-for='(value, tag) in scope.row.filter' v-if='value.open'>
-            {{value}}
             <div class="tag-title">
               {{tag}}
             </div>

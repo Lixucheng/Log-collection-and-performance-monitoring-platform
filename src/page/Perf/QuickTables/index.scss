@@ -1,0 +1,35 @@
+.quick-table-page {
+  .item {
+    position: relative;
+    margin: 20px 0;
+    .item-title {
+      display: inline-block;
+      height: 30px;
+      line-height: 30px;
+    }
+    .count {
+      position: absolute;
+      color: #fff;
+      font-weight: 200;
+      font-size: 10px;
+      /* width: 100px; */
+      z-index: 2;
+      top: 35px;
+      left: 10px;
+    }
+  }
+  .el-progress-bar__outer {
+    border-radius: 0 !important;
+  }
+  .el-progress-bar__inner {
+    border-radius: 0 !important;
+  }
+  .data-picker{
+    width: 250px;
+  }
+  .table {
+    margin-top: 10px;
+    width: 100%;
+    height: 500px;
+  }
+}

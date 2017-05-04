@@ -1,0 +1,28 @@
+<perf-layout :loading='loading' :projectId='projectId' :active='active'>
+  <div class="title" slot='title'>
+    <el-date-picker class='data-picker' v-model="timeZone" type="daterange" align="right" placeholder="选择日期范围" :picker-options="timeOPtions">
+    </el-date-picker>
+    <el-button @click='getData' type='success'><i class="el-icon-caret-right"></i></el-button>
+  </div>
+  <div class="body" slot='body'>
+
+    <el-row class='quick-table-page'>
+      <el-alert v-if='data.length === 0' title="没有数据" type="warning" :closable="false">
+      </el-alert>
+      <el-col :xs="24" :sm="24" :md="6" :span='6'>
+        
+        <el-row :key='i' class='item' v-for='i in data.count'>
+          <el-col :span='24' class="item-title">{{i._id.tagValue}} :</el-col>
+          <div class="count">{{i.value}} 次</div>
+          <el-col :span='24'>
+            <el-progress :show-text='false' :text-inside="true" :stroke-width="30" :percentage="i.value / full"></el-progress>
+
+          </el-col>
+        </el-row>
+      </el-col>
+      <el-col :xs="24" :sm="24" :md="18" v-show='data.count && data.count.length > 0'>
+        <div class='table' ref='table'></div>
+      </el-col>
+    </el-row>
+  </div>
+</perf-layout>
