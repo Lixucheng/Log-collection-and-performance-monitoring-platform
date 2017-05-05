@@ -40,8 +40,7 @@ app.use(async (ctx, next) => {
   await next();
   const user = ctx['session'] && ctx['session'].user;
   if ((!/\/api.*/.test(ctx.url))) {
-    if (!(/\/login.*/.test(ctx.url)) && !user) {
-      console.log('跳转');
+    if (!(/\/login.*/.test(ctx.url)) && !user && !(/\/register.*/.test(ctx.url))) {
       ctx.redirect('/login');
     } else {
       await ctx['render']('index');

@@ -1,33 +1,42 @@
-.perf-index-page{
-  .filter{
+.perf-index-page {
+  @media (min-width: 1385px) {
+    .my-box {
+      width: 25% !important;
+    }
+  }
+  .my-box {
+    width: 50%;
+    margin-bottom: 20px;
+  }
+  .filter {
     margin-bottom: 10px;
     padding-left: 10px;
   }
-  .box-card{
+  .box-card {
     height: 300px;
   }
-  .item{
+  .item {
     font-size: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
     color: #666;
     font-weight: 100;
-
-    .item-value{
+    .item-value {
       margin-left: 10px;
     }
-    &>div{
+    &>div {
       display: inline-block;
     }
   }
-  .title{
+  .title {
     padding-left: 0 !important;
   }
-  .el-card{
+  .el-card {
     min-width: 265px;
   }
-  .table{
+  .table {
     width: 250px;
     height: 250px;
+    margin: auto;
   }
 }

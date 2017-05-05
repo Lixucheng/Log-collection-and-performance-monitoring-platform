@@ -14,7 +14,7 @@
         <el-button @click='getData' type='success'><i class="el-icon-caret-right"></i></el-button>
       </el-row>
 
-      <el-col :span='6'>
+      <el-col class='my-box'>
         <el-card class="box-card">
           <div class="title">全站性能</div>
           <div class="item">
@@ -31,20 +31,19 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span='6'>
+      <el-col  class='my-box'>
         <el-card class="box-card">
           <div class="title">操作系统</div>
           <div class="table" ref= 'osTable'></div>
         </el-card>
       </el-col>
-      <el-col :span='6'>
+      <el-col  class='my-box'>
         <el-card class="box-card">
           <div class="title">界面分布</div>
           <div class="table" ref= 'pageTable'></div>
-          
         </el-card>
       </el-col>
-      <el-col :span='6'>
+      <el-col  class='my-box'>
         <el-card class="box-card">
           <div class="title">软件版本</div>
           <div class="table" ref= 'deviceTable'></div>

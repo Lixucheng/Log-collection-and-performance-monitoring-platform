@@ -8,6 +8,7 @@ export default {
   data() {
     return {
       // User: Service.user
+      logPage: this.$route.name.indexOf('log') > -1
     }
   },
   computed: {

@@ -3,8 +3,9 @@ const cookieName = 'lp-platform';
 
 module.exports = router => {
   // 注册
-  router.post('/register', async (ctx, next) => {
+  router.post('/api/register', async (ctx, next) => {
     const body = ctx.request.body;
+    console.log(body);
     if (body.name && body.passWord) {
       const has = await User.find({ name: body.name });
       if (has.length) {
@@ -12,6 +13,9 @@ module.exports = router => {
       } else {
         const user = new User(body);
         await user.save();
+        // 登陆
+        ctx.session.user = user;
+        ctx.cookies.set(cookieName, JSON.stringify({ name: user.name }), { httpOnly: false });
         ctx.body = 1; // 成功
       }
     } else {

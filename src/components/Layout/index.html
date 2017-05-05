@@ -6,6 +6,8 @@
       </li>
     </ul>
     <ul class="top-right">
+      <a class="my-menu" href='/log' :class='{active: logPage}'>日志中心</a>
+      <a class="my-menu" href='/perf/list' :class='{active: !logPage}'>性能监控</a>
       <li class="nav-menu" v-if="User">
         欢迎 {{ User.name }} ，
         <el-button @click='logout' type="text">退出</el-button>

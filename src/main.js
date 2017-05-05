@@ -22,6 +22,12 @@ Vue.use(VueRouter)
 Vue.use(ElementUI)
 
 const routes = [{
+  path: '/',
+  redirect: {
+    name: 'log'
+  }
+},
+{
   path: '/log/:page',
   name: 'log',
   component: Log
@@ -34,6 +40,11 @@ const routes = [{
 {
   path: '/login',
   name: 'login',
+  component: Login
+},
+{
+  path: '/register',
+  name: 'register',
   component: Login
 },
 {
@@ -85,7 +96,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.name === 'login' || UserService.User) {
+  if (to.name === 'login' || to.name === 'register' || UserService.User) {
     next();
   } else {
     next('login');

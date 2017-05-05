@@ -10,6 +10,15 @@ export function login(user) {
     body: JSON.stringify(user),
   });
 }
+export function register(user) {
+  return fetch(`/api/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(user),
+  });
+}
 
 export function logout(name) {
   return fetch(`/api/logout`, {
@@ -24,7 +33,7 @@ export function logout(name) {
 }
 
 export function queryUser(name) {
-  return fetch(`/api/user/query?name=${name}`);  
+  return fetch(`/api/user/query?name=${name}`);
 }
 
 
@@ -43,6 +52,13 @@ class User {
   }
   async login(user) {
     const ret = await login(user);
+    if (ret === 1) {
+      this.User = user;
+    }
+    return ret;
+  }
+  async register(user) {
+    const ret = await register(user);
     if (ret === 1) {
       this.User = user;
     }
