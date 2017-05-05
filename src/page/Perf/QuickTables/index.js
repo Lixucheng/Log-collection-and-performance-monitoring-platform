@@ -117,6 +117,7 @@ export default {
           },
           series: flash ? flash.y : [],
           toolbox: {
+            orient: 'vertical',
             show: true,
             feature: {
               dataZoom: {
