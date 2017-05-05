@@ -56,7 +56,6 @@ export default {
   },
   async created() {
     this.refresh();
-    window.v = this;
   },
   watch: {
     '$route.query': function () {
@@ -84,28 +83,12 @@ export default {
 
       const flash = this.formatData(data);
       console.log('flash', flash)
-      this.initChart();
-      setTimeout(() => {
-        this.myChart.setOption({
-          legend: {
-            data: flash.name
-          },
-          xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            data: flash.x,
-          },
-          // series: data.map(e => ({
-          //   name: 
-          // })),
-          series: flash.y
-        });
-        this.loading = false;
-      });
+      this.initChart(flash);
+      this.loading = false;
     },
-    initChart() {
+    initChart(flash) {
       setTimeout(() => {
-        if (this.myChart || !this.$refs.table) return;
+        if (!this.$refs.table) return;
         this.myChart = Echart.init(this.$refs.table);
         this.myChart.setOption({
           title: {
@@ -124,9 +107,15 @@ export default {
             bottom: '3%',
             containLabel: true
           },
-          xAxis: {
-            data: []
+          legend: {
+            data: flash ? flash.name : []
           },
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: flash ? flash.x : [],
+          },
+          series: flash ? flash.y : [],
           toolbox: {
             show: true,
             feature: {
@@ -163,7 +152,7 @@ export default {
               shadowOffsetY: 2
             }
           }],
-        });
+        }, true);
       })
     },
     getData() {

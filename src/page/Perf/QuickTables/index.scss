@@ -6,6 +6,9 @@
       display: inline-block;
       height: 30px;
       line-height: 30px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .count {
       position: absolute;
@@ -24,7 +27,7 @@
   .el-progress-bar__inner {
     border-radius: 0 !important;
   }
-  .data-picker{
+  .data-picker {
     width: 250px;
   }
   .table {
