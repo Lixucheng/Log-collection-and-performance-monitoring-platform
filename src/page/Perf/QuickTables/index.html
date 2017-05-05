@@ -7,20 +7,19 @@
   <div class="body" slot='body'>
 
     <el-row class='quick-table-page'>
-      <el-alert v-if='data.length === 0' title="没有数据" type="warning" :closable="false">
+      <el-alert v-if='!(data && data.count && data.count.length)' title="没有数据" type="warning" :closable="false">
       </el-alert>
-      <el-col :xs="24" :sm="24" :md="6" :span='6'>
+      <el-col v-if='(data && data.count && data.count.length)' :xs="24" :sm="24" :md="6" :span='6'>
         
         <el-row :key='i' class='item' v-for='i in data.count'>
           <el-col :span='24' class="item-title">{{i._id.tagValue}} :</el-col>
           <div class="count">{{i.value}} 次</div>
           <el-col :span='24'>
             <el-progress :show-text='false' :text-inside="true" :stroke-width="30" :percentage="i.value / full"></el-progress>
-
           </el-col>
         </el-row>
       </el-col>
-      <el-col :xs="24" :sm="24" :md="18" v-show='data.count && data.count.length > 0'>
+      <el-col :xs="24" :sm="24" :md="18" >
         <div class='table' ref='table'></div>
       </el-col>
     </el-row>

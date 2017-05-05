@@ -79,9 +79,9 @@ perfSchema.statics.getFilterData = async function (option) {
     },
     reduce: function (key, values) {
       if (values[0].type === 'counter') {
-        return  values.reduce((pre, curr) => pre + curr, 0);
+        return values.reduce((pre, curr) => pre + curr, 0);
       } else {
-        return  Array.avg(values);
+        return Array.avg(values);
       }
     },
     out: { inline: 1 },
@@ -91,24 +91,41 @@ perfSchema.statics.getFilterData = async function (option) {
   console.log(ret);
   return ret;
 };
-
+async function getTagTableData (option) {
+  const ret = await PerfData.mapReduce({
+    map: function () {
+      var time = +this.time / (1000 * 60);
+      emit(Math.ceil(time), this.value);
+    },
+    reduce: function (key, values) {
+      return values.length;
+    },
+    out: { inline: 1 },
+    query: option
+  }
+  );
+  console.log(ret);
+  return ret;
+}
 perfSchema.statics.getTagValues = async function (project, tag, timeZone) {
   const match = {
     $match: {
       project: ToObjectId(project),
       // 'tags.name': { $ne: null }
-      time: {
-        $gte: new Date(timeZone[0]),
-        $lt: new Date(timeZone[1])
-      }
     }
   };
+  if (timeZone) {
+    match.$match['time'] = {
+      $gte: new Date(timeZone[0]),
+      $lt: new Date(timeZone[1])
+    }
+  }
   match.$match['tags.' + tag] = { $ne: null };
   const group = {
     $group: {
       _id: {
         tagValue: ''
-      }, value: { $sum: "$value" }
+      }, value: { $sum: 1 }
     }
   };
   group.$group._id.tagValue = '$tags.' + tag;
@@ -130,12 +147,55 @@ perfSchema.statics.getTagValues = async function (project, tag, timeZone) {
   const dataList = [];
   for (let i = 0; i < count.length; i++) {
     query['tags.' + tag] = count[i]._id.tagValue;
-    const data = await this.getFilterData(query);
+    const data = await getTagTableData(query);
     dataList.push(data);
   }
   return {
     count, dataList
   }
+};
+
+perfSchema.statics.getPerfData = async function (project, timeZone) {
+  const query = {
+    name: 'counter.pv',
+    project,
+  }
+  if (timeZone) {
+    query['time'] = {
+      $gte: new Date(timeZone[0]),
+      $lt: new Date(timeZone[1])
+    }
+  }
+  query.name = 'counter.pv';
+  console.log(query);
+  const pv = await this.count(query);
+
+  query.name = 'timing.load';
+  const load = await this.mapReduce({
+    map: function () {
+      emit(this.name, this.value);
+    },
+    reduce: function (key, values) {
+      return Array.avg(values);
+    },
+    out: { inline: 1 },
+    query,
+  });
+  query.name = 'timing.response';
+  const response = await this.mapReduce({
+    map: function () {
+      emit(this.name, this.value);
+    },
+    reduce: function (key, values) {
+      return Array.avg(values);
+    },
+    out: { inline: 1 },
+    query,
+  });
+
+  return {
+    pv, load, response
+  };
 };
 
 

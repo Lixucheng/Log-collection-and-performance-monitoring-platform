@@ -1,0 +1,33 @@
+.perf-index-page{
+  .filter{
+    margin-bottom: 10px;
+    padding-left: 10px;
+  }
+  .box-card{
+    height: 300px;
+  }
+  .item{
+    font-size: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #666;
+    font-weight: 100;
+
+    .item-value{
+      margin-left: 10px;
+    }
+    &>div{
+      display: inline-block;
+    }
+  }
+  .title{
+    padding-left: 0 !important;
+  }
+  .el-card{
+    min-width: 265px;
+  }
+  .table{
+    width: 250px;
+    height: 250px;
+  }
+}

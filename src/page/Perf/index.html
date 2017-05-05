@@ -1,6 +1,56 @@
-<perf-layout :loading='loading' @getProject='getProject' :projectId='projectId' active='index'>
+<perf-layout :loading='loading'  :projectId='projectId' active='index'>
 
   <div v-title="'性能监控平台'"></div>
-    123123
-</perf-layout>
+  <div class="title" slot='title'>
+    总览
 
+  </div>
+  <div class="body" slot='body'>
+
+    <el-row class='perf-index-page' :gutter='20'>
+      <el-row class='filter'>
+        <el-date-picker class='data-picker' v-model="timeZone" type="daterange" align="right" placeholder="选择日期范围" :picker-options="timeOPtions">
+        </el-date-picker>
+        <el-button @click='getData' type='success'><i class="el-icon-caret-right"></i></el-button>
+      </el-row>
+
+      <el-col :span='6'>
+        <el-card class="box-card">
+          <div class="title">全站性能</div>
+          <div class="item">
+            <div class="item-title">浏览量:</div>
+            <div class="item-value">{{data && data.data.pv}} pv</div>
+          </div>
+          <div class="item">
+            <div class="item-title">响应时间:</div>
+            <div class="item-value">{{data && data.data.response}} ms</div>
+          </div>
+          <div class="item">
+            <div class="item-title">完全加载时间:</div>
+            <div class="item-value">{{data && data.data.load}} ms</div>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :span='6'>
+        <el-card class="box-card">
+          <div class="title">操作系统</div>
+          <div class="table" ref= 'osTable'></div>
+        </el-card>
+      </el-col>
+      <el-col :span='6'>
+        <el-card class="box-card">
+          <div class="title">界面分布</div>
+          <div class="table" ref= 'pageTable'></div>
+          
+        </el-card>
+      </el-col>
+      <el-col :span='6'>
+        <el-card class="box-card">
+          <div class="title">软件版本</div>
+          <div class="table" ref= 'deviceTable'></div>
+          
+        </el-card>
+      </el-col>
+    </el-row>
+  </div>
+</perf-layout>

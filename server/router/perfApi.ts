@@ -199,6 +199,16 @@ module.exports = router => {
     ctx.body = data;
   });
 
+  router.get('/api/perf/data/getPerfData', async (ctx, next) => {
+    const id = ctx.query.id;
+    const timeZone = ctx.query.timeZone;
+    console.log('query:', ctx.query)
+    const data = await PerfData['getPerfData'](id, timeZone);
+    data.load = data.load && data.load.length && data.load[0].value.toFixed(0);
+    data.response = data.response  && data.response.length && data.response[0].value.toFixed(0);
+    ctx.body = data;
+  });
+
   router.get('/api/perf/data/test', async (ctx, next) => {
     const id = ctx.query.id;
     const target = ctx.query.target;

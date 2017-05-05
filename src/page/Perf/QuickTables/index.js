@@ -49,7 +49,7 @@ export default {
           }
         }]
       },
-      data: [],
+      data: null,
       full: 0,
       myChart: null,
     }
@@ -61,6 +61,7 @@ export default {
   watch: {
     '$route.query': function () {
       this.tag = this.$route.query.tag
+      this.data = null;
       this.refresh();
     }
   },
@@ -72,6 +73,10 @@ export default {
         tag: this.tag,
         timeZone: this.timeZone
       });
+      if (!data.count) {
+        this.loading = false;
+        return;
+      }
       const count = data.count.reverse();
       this.data = data;
       this.full = count && count[0] && count[0].value * 0.012;

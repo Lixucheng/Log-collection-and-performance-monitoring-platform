@@ -1,0 +1,34 @@
+<perf-layout :loading='loading' :projectId='projectId' active='index'>
+
+  <div v-title="'接入向导'"></div>
+  <div class="title" slot='title'>
+    接入向导
+  </div>
+  <div class="body" slot='body'>
+    <div class="info-page">
+      <div class="item">
+        <div class="item-title">token :</div>
+        <div class="item-value">{{projectId}}</div>
+      </div>
+      <code class="content">
+        import Perf from 'Performance'; 
+        <br>
+        // 初始化
+        <br>
+        Perf.initService(token);
+        <br>
+        // 使用
+        <br>
+        Perf.timing(name, time, tags)
+        <br>
+        Perf.increment(name, delta, tags)
+        <br>
+        Perf.gauge(name, value, tags)
+        <br>
+        Perf.startTime(name)
+        <br>
+        Perf._stopTime(name, tags)
+      </code>
+    </div>
+  </div>
+</perf-layout>

@@ -21,10 +21,41 @@ export function getFilterData(project, option, timeZone) {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ project, option, timeZone }),
+    body: JSON.stringify({
+      project,
+      option,
+      timeZone
+    }),
   });
 }
 
 export function getTagValues(option) {
   return fetch(`/api/perf/data/getTagValues?${queryString.stringify(option)}`);
+}
+
+export function getPerfData(option) {
+  return fetch(`/api/perf/data/getPerfData?${queryString.stringify(option)}`);
+}
+
+export async function getIndexData(id, timeZone) {
+  const t1 = await getTagValues({
+    id,
+    tag: 'deviceOs',
+    timeZone,
+  });
+  const t2 = await getTagValues({
+    id,
+    tag: 'page',
+    timeZone,
+  });
+  const t3 = await getTagValues({
+    id,
+    tag: 'device',
+    timeZone,
+  });
+  const data = await getPerfData({ id, timeZone });
+
+  return {
+    data, table: [t1, t2, t3]
+  }
 }
