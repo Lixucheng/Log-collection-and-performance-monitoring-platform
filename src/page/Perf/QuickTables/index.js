@@ -76,7 +76,7 @@ export default {
         this.loading = false;
         return;
       }
-      const count = data.count.reverse();
+      const count = data.count;
       this.data = data;
       this.full = count && count[0] && count[0].value * 0.012;
       console.log(data);

@@ -103,7 +103,7 @@ async function getTagTableData (option) {
     query: option
   }
   );
-  console.log('testnow', ret);
+  // console.log('testnow', ret);
   return ret;
 }
 
@@ -140,14 +140,14 @@ perfSchema.statics.getTagValues = async function (project, tag, timeZone) {
       }
     },
     group,
-    { $sort: { value: 1 } }
+    { $sort: { value: -1 } }
   ]);
 
   const query = match.$match;
   const dataList = [];
   for (let i = 0; i < count.length; i++) {
-    query['tags.' + tag] = count[i]._id.tagValue;
     const data = await getTagTableData(query);
+    console.log('tag:', count[i]._id.tagValue);
     dataList.push(data);
   }
   return {
