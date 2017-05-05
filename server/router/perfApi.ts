@@ -186,7 +186,27 @@ module.exports = router => {
     return sum / list.length;
   }
 
-
+  
+  function tagformat(data, timeZone, type) {
+    console.log('type:', type);
+    // console.log('format', data);
+    let start = +new Date(timeZone[0]);
+    const finial = +new Date(timeZone[1]);
+    const count = Math.ceil(((+new Date(timeZone[1])) - (+new Date(timeZone[0]))) / 60000);
+    const zone = Math.ceil(count / 100); // 分钟
+    const obj = {};
+    while (start + zone * 60 * 1000 <= finial) {
+      const now = new Date(start);
+      const end = start + zone * 60 * 1000;
+      const list = data.filter(e => e._id * 60000 >= start && e._id * 60000 < end);
+      // console.log('add one:', list.length, list)
+      const name = [now.getMonth() + 1, now.getDate()].join('-') + ' ' + now.getHours() + ':' + now.getMinutes();
+      obj[name] = list.length;
+      start += zone * 60 * 1000;
+    }
+    // console.log('format', obj)
+    return obj;
+  }
   router.get('/api/perf/data/getTagValues', async (ctx, next) => {
     const id = ctx.query.id;
     const tag = ctx.query.tag;
@@ -194,7 +214,7 @@ module.exports = router => {
     console.log(ctx.query)
     const data = await PerfData['getTagValues'](id, tag, timeZone);
     data.dataList.forEach((e, i, array) => {
-      array[i] = format(e, timeZone, 'counter');
+      array[i] = tagformat(e, timeZone, 'counter');
     });
     ctx.body = data;
   });

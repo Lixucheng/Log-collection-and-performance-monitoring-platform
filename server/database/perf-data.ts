@@ -88,7 +88,6 @@ perfSchema.statics.getFilterData = async function (option) {
     query: option
   }
   );
-  console.log(ret);
   return ret;
 };
 async function getTagTableData (option) {
@@ -104,9 +103,10 @@ async function getTagTableData (option) {
     query: option
   }
   );
-  console.log(ret);
+  console.log('testnow', ret);
   return ret;
 }
+
 perfSchema.statics.getTagValues = async function (project, tag, timeZone) {
   const match = {
     $match: {
@@ -167,7 +167,6 @@ perfSchema.statics.getPerfData = async function (project, timeZone) {
     }
   }
   query.name = 'counter.pv';
-  console.log(query);
   const pv = await this.count(query);
 
   query.name = 'timing.load';
@@ -246,7 +245,6 @@ perfSchema.statics.addTag = async function (name, count) {
   tags[name] = Math.ceil(Math.random() * 10);
   for (let i = 0; i < 100; i++) {
     const now = new Date(start += 1000 * 60);
-    console.log('addTags', tags)
     const entity = new PerfData({
       type: 'counter',
       name: 'counter.tags',
