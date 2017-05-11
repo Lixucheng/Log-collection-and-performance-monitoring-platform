@@ -21,7 +21,7 @@ module.exports = router => {
     const files = await fs.readdir(logDir);
     await files.reduce(async (p, file) => {
       await p;
-      if (path.extname(file) === '.txt') {
+      if (path.extname(file) === '.txt' && file.split('-')[1] === deviceId) {
         const time = file.split('-')[2].split('_').join('-');
         if (startTime && endTime) {
           if (new Date(time) >= new Date(startTime)

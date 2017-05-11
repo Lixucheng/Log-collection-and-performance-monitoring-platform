@@ -112,3 +112,8 @@ Vue.directive('title', {
 new Vue({
   router
 }).$mount('#app')
+
+const response = performance.timing.responseEnd - performance.timing.responseStart;
+console.log('timing.response', response);
+const load =  performance.timing.loadEventStart - performance.timing.navigationStart;
+console.log('timing.load', load);
