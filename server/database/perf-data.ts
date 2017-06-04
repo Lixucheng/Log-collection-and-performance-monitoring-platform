@@ -26,7 +26,7 @@ const perfSchema = new Schema({
 });
 // 获取指标
 perfSchema.statics.getAllName = async function (id) {
-  const p = await this.distinct('name');
+  const p = await this.distinct('name',  {project: id});
   return p;
 };
 
@@ -51,7 +51,7 @@ perfSchema.statics.getTargetTags = async function (id, target) {
 };
 
 perfSchema.statics.getAllTargetTags = async function (id) {
-  const p = await this.distinct('name');
+  const p = await this.distinct('name',  {project: id});
   const ret = {};
   await p.reduce(async (pre, target) => {
     await pre;
@@ -146,8 +146,9 @@ perfSchema.statics.getTagValues = async function (project, tag, timeZone) {
   const query = match.$match;
   const dataList = [];
   for (let i = 0; i < count.length; i++) {
+    query['tags.' + tag] = count[i]._id.tagValue;
     const data = await getTagTableData(query);
-    console.log('tag:', count[i]._id.tagValue);
+    console.log('tag:', count[i]._id.tagValue, query);
     dataList.push(data);
   }
   return {
