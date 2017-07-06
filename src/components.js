@@ -17,26 +17,8 @@ import Select from 'element-ui/lib/select';
 import Card from 'element-ui/lib/card';
 import Option from 'element-ui/lib/option';
 import Progress from 'element-ui/lib/progress';
+import Dialog from 'element-ui/lib/dialog';
 export default (Vue) => {
-  // Vue.use(Button, Button.name);
-  // Vue.use(Col.name, Col);
-  // Vue.use(Row.name, Row);
-  // Vue.use(Menu.name, Menu);
-  // Vue.use(Submenu.name, Submenu);
-  // Vue.use(Form.name, Form);
-  // Vue.use(MenuItem.name, MenuItem);
-  // Vue.use(Input.name, Input);
-  // Vue.use(FormItem.name, FormItem);
-  // Vue.use(DatePicker.name, DatePicker);
-  // Vue.use(Table.name, Table);
-  // Vue.use(TableColumn.name, TableColumn);
-  // Vue.use(Pagination.name, Pagination);
-  // Vue.use(Alert.name, Alert);
-  // Vue.use(Autocomplete.name, Autocomplete);
-  // Vue.use(Select.name, Select);
-  // Vue.use(Card.name, Card);
-  // Vue.use(Option.name, Option);
-  // Vue.use(Progress.name, Progress);
   Vue.use(Button);
   Vue.use(Col);
   Vue.use(Row);
@@ -56,4 +38,5 @@ export default (Vue) => {
   Vue.use(Card);
   Vue.use(Option);
   Vue.use(Progress);
+  Vue.use(Dialog);
 }

@@ -19,6 +19,7 @@ import Select from 'element-ui/lib/select';
 import Card from 'element-ui/lib/card';
 import Option from 'element-ui/lib/option';
 import Progress from 'element-ui/lib/progress';
+import Dialog from 'element-ui/lib/dialog';
 
 
 
