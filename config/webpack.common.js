@@ -10,7 +10,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.ts', '.js', 'json', '.vue'],
+    extensions: ['.js', 'json', '.vue'],
     alias: {
       vue: 'vue/dist/vue.js',
       'service': helpers.root('src', 'service'),

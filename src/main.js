@@ -5,10 +5,9 @@ import 'element-ui/lib/theme-default/index.css'
 import './style/theme/index.css';
 import './style/index.scss';
 import '../node_modules/font-awesome/scss/font-awesome.scss';
-import ElementUI from 'element-ui'
+// import ElementUI from 'element-ui'
 import UserService from 'service/user';
-
-
+import Components from './components.js';
 
 // import Log from './page/Log'
 // import Perf from './page/Perf'
@@ -82,7 +81,8 @@ const Perf = (resolve) => {
 
 Vue.use(VueRouter)
 
-Vue.use(ElementUI)
+Components(Vue)
+// Vue.use(ElementUI)
 
 const routes = [{
   path: '/',
