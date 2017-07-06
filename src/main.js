@@ -1,21 +1,84 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import 'element-ui/lib/theme-default/index.css'
-import Log from './page/Log'
-import Perf from './page/Perf'
-import PerfList from './page/Perf/List'
-import PerfUser from './page/Perf/User'
-import PerfDataTargetList from './page/Perf/Data/TargetList'
-import PerfDataTargetTable from './page/Perf/Data/TargetTable'
-import PerfDataTargetData from './page/Perf/Data/TargetData'
-import PerfDataQuickTable from './page/Perf/QuickTables'
-import PerfInfo from './page/Perf/Info'
-import Login from './page/Login'
+
 import './style/theme/index.css';
 import './style/index.scss';
 import '../node_modules/font-awesome/scss/font-awesome.scss';
 import ElementUI from 'element-ui'
 import UserService from 'service/user';
+
+
+
+// import Log from './page/Log'
+// import Perf from './page/Perf'
+// import PerfList from './page/Perf/List'
+// import PerfUser from './page/Perf/User'
+// import PerfDataTargetList from './page/Perf/Data/TargetList'
+// import PerfDataTargetTable from './page/Perf/Data/TargetTable'
+// import PerfDataTargetData from './page/Perf/Data/TargetData'
+// import PerfDataQuickTable from './page/Perf/QuickTables'
+// import PerfInfo from './page/Perf/Info'
+// import Login from './page/Login'
+
+const Login = (resolve) => {
+  require.ensure(['./page/Login'], () => {
+    resolve(require('./page/Login').default)
+  })
+}
+
+const PerfInfo = (resolve) => {
+  require.ensure(['./page/Perf/Info'], () => {
+    resolve(require('./page/Perf/Info').default)
+  })
+}
+
+const PerfDataQuickTable = (resolve) => {
+  require.ensure(['./page/Perf/QuickTables'], () => {
+    resolve(require('./page/Perf/QuickTables').default)
+  })
+}
+
+const PerfDataTargetData = (resolve) => {
+  require.ensure(['./page/Perf/Data/TargetData'], () => {
+    resolve(require('./page/Perf/Data/TargetData').default)
+  })
+}
+
+const PerfDataTargetTable = (resolve) => {
+  require.ensure(['./page/Perf/Data/TargetTable'], () => {
+    resolve(require('./page/Perf/Data/TargetTable').default)
+  })
+}
+
+const PerfDataTargetList = (resolve) => {
+  require.ensure(['./page/Perf/Data/TargetList'], () => {
+    resolve(require('./page/Perf/Data/TargetList').default)
+  })
+}
+
+const PerfUser = (resolve) => {
+  require.ensure(['./page/Perf/User'], () => {
+    resolve(require('./page/Perf/User').default)
+  })
+}
+
+const PerfList = (resolve) => {
+  require.ensure(['./page/Perf/List'], () => {
+    resolve(require('./page/Perf/List').default)
+  })
+}
+
+const Log = (resolve) => {
+  require.ensure(['./page/Log'], () => {
+    resolve(require('./page/Log').default)
+  })
+}
+const Perf = (resolve) => {
+  require.ensure(['./page/Perf'], () => {
+    resolve(require('./page/Perf').default)
+  })
+}
 
 Vue.use(VueRouter)
 

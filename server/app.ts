@@ -8,6 +8,9 @@ const views = require('koa-views');
 const body = require('koa-bodyparser');
 const redisStore = require('koa-redis');
 
+var compress = require('koa-compress')
+var etag = require('koa-etag');
+
 const helpers = require('../helpers/root');
 const app = new Koa();
 
@@ -18,6 +21,16 @@ app.use(async (ctx, next) => {
   const ms: any = end - start;
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
+
+app.use(compress({
+  filter: function (content_type) {
+    return /text/i.test(content_type)
+  },
+  threshold: 2048,
+  flush: require('zlib').Z_SYNC_FLUSH
+}))
+
+app.use(etag());
 
 app.use(session({
   store: redisStore()

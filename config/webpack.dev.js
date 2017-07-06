@@ -3,7 +3,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var commonConfig = require('./webpack.common.js');
 var helpers = require('../helpers/root');
 
-console.info(helpers.root('dist')) ;
+console.info(helpers.root('dist'));
 module.exports = webpackMerge(commonConfig, {
   devtool: '#eval',
 
