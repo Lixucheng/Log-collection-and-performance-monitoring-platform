@@ -4,6 +4,7 @@ import router from './router';
 import Socket from './service/socket';
 import * as session from 'koa-session-minimal';
 
+const staticCache = require('koa-static-cache')
 const views = require('koa-views');
 const body = require('koa-bodyparser');
 const redisStore = require('koa-redis');
@@ -38,8 +39,10 @@ app.use(session({
 
 app.use(body());
 
-app.use(serve(helpers.root('public'), {
-  maxage: 2400 * 24 * 365,
+app.use(staticCache(helpers.root('public'), {
+  maxAge: 60 * 60 * 24 * 365,
+  usePrecompiledGzip: true,
+  gzip: true,
 }));
 
 // Must be used before any router is used
