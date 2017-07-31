@@ -38,7 +38,9 @@ app.use(session({
 
 app.use(body());
 
-app.use(serve(helpers.root('public')));
+app.use(serve(helpers.root('public'), {
+  maxage: 2400 * 24 * 365,
+}));
 
 // Must be used before any router is used
 app.use(views(helpers.root('public', 'dist'), {}));
